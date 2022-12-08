@@ -1,0 +1,21 @@
+.landingpage {
+  height: 100vh;
+  width: 100vw;
+  background: rgb(255, 255, 236);
+}
+
+.login {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  height: 50%;
+  width: 30%;
+  transform: translate(50%, -50%);
+  background: rgb(255, 254, 168);
+  border-color: yellow;
+  border-width: 1px;
+}
+
+.heading {
+  text-align: center;
+}

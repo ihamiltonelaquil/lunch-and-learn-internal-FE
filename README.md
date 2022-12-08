@@ -1,3 +1,1 @@
 Lunch and Learn 
-
-tastastatas
