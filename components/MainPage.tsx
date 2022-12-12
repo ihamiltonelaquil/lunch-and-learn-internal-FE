@@ -1,6 +1,7 @@
 import styles from "../styles/Mainpage.module.css";
 import Navbar from "./Navigation/Navbar";
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import MainPageCard from "./Cards/MainPageCard";
 
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
@@ -17,7 +18,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    fetch(`https://localhost:7115/api/LunchAndLearn/${searchText}`)
+    fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setLandingData(data);
@@ -46,10 +47,15 @@ const MainPage = () => {
           {landingData.map((data) => {
             {
               return (
-                <div key={data.meetingID}>
-                  <img src=""></img>
-                  <p>{data.creatorName}</p>
-                </div>
+                <>
+                  <div key={data.meetingID}>
+                    <img src=""></img>
+                    <p>{data.creatorName}</p>
+                  </div>
+                  <div className="background-container">
+                    <div className="main-card"></div>
+                  </div>
+                </>
               );
             }
           })}
