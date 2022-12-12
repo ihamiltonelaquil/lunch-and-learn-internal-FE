@@ -1,7 +1,7 @@
 import styles from "../styles/Mainpage.module.css";
 import Navbar from "./Navigation/Navbar";
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
-import MainPageCard from "./Cards/MainPageCard";
+import MainPageCard from "./Cards/MainCard";
 
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
