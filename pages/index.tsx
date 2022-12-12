@@ -8,7 +8,7 @@ const Index = () => {
 
   return (
     <>
-      {isLoading && <p>Loading login info...</p>}
+      {isLoading && <div>Loading login info...</div>}
 
       {!isLoading && !user && (
         <>
