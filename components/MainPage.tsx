@@ -2,6 +2,7 @@ import styles from "../styles/Mainpage.module.css";
 import Navbar from "./Navigation/Navbar";
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import MainPageCard from "./Cards/MainCard";
+import Link from "next/link";
 
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
@@ -45,6 +46,10 @@ const MainPage = () => {
             <button type="submit" value="Submit">
               Submit
             </button>
+
+            <Link className="btn btn-dark" href="/deleteMeeting">
+              Delete
+            </Link>
           </form>
         </div>
 
@@ -53,9 +58,8 @@ const MainPage = () => {
             {
               return (
                 <>
-                  <div className="container">
+                  <div key={data.meetingID} className="container">
                     <div key={data.meetingID}>
-                      <img src=""></img>
                       <p>{data.creatorName}</p>
                     </div>
                   </div>
