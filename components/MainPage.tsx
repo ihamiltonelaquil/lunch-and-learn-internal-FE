@@ -21,7 +21,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
+    fetch(`https://localhost:555/api/LunchAndLearn/get/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setLandingData(data);
@@ -63,7 +63,6 @@ const MainPage = () => {
                 <>
                   <div className="container">
                     <div key={data.meetingID}>
-                      <img src=""></img>
                       <p>{data.creatorName}</p>
                     </div>
                   </div>

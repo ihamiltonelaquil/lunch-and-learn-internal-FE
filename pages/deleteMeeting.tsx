@@ -10,6 +10,7 @@ const deleteMeeting = () => {
   const [resultData, setResultData] = useState<any[]>([]);
   const [searchName, setSearchName] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [deleteID, setDeleteID] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,8 +24,8 @@ const deleteMeeting = () => {
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const appMode = event.currentTarget.getAttribute("data-meetingID");
-    console.log(appMode);
+    const meetingID = event.currentTarget.getAttribute("data-meetingID");
+    console.log(meetingID);
   };
 
   useEffect(() => {
@@ -44,31 +45,41 @@ const deleteMeeting = () => {
 
   return (
     <>
-      <div className="inputForm">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Search for a name
-            <input value={searchName} onChange={handleChange}></input>
-          </label>
-          <button type="submit" value="Submit">
-            Submit
-          </button>
-        </form>
+      <div className="container w-50 mb-3">
+        <div className="input-group">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Search for a name
+              <input
+                className="mt-2 form-control"
+                value={searchName}
+                onChange={handleChange}
+              />
+            </label>
+            <button className="btn-dark btn" type="submit" value="Submit">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
       <div>
         {resultData.map((data) => {
           {
             return (
               <>
-                <div className="container">
-                  <div key={data.meetingID}>
-                    <p>{data.creatorName}</p>
-                    <button
-                      data-meetingID={data.meetingID}
-                      onClick={buttonHandler}
-                    >
-                      a
-                    </button>
+                <div className="container w-50">
+                  <div className="input-group m-2">
+                    <div className="" key={data.meetingID}></div>
+                    <div className="form-control">{data.creatorName}</div>
+                    <div className="input-group-append">
+                      <button
+                        className="btn btn-dark btn-sm"
+                        data-meetingID={data.meetingID}
+                        onClick={buttonHandler}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               </>
