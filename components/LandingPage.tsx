@@ -1,13 +1,21 @@
 import styles from "../styles/Landingpage.module.css";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
+  const router = useRouter();
   return (
     <>
-      <div className={styles.landingpage}>
+      <div className={styles.landingPage}>
         <div className={styles.login}>
           <div>
             <h1 className={styles.heading}>Welcome to Lunch and Learn</h1>
-            <a href="/api/auth/login">Login</a>
+            <button
+              type="button"
+              className={styles.loginButton}
+              onClick={() => router.push("/api/auth/login")}
+            >
+              Login
+            </button>
           </div>
         </div>
       </div>

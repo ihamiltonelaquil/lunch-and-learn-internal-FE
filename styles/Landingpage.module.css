@@ -1,7 +1,6 @@
-.landingpage {
+.landingPage {
   height: 100vh;
   width: 100vw;
-  background: rgb(255, 255, 236);
 }
 
 .login {
@@ -10,10 +9,30 @@
   right: 50%;
   height: 50%;
   width: 30%;
+  min-width: 650px;
   transform: translate(50%, -50%);
-  background: rgb(255, 254, 168);
-  border-color: yellow;
-  border-width: 1px;
+  background: rgb(255, 254, 197);
+  border-radius: 35px;
+  outline: 5px solid yellow;
+}
+
+.loginButton {
+  background-color: rgb(247, 255, 141);
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 250px;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginButton:hover {
+  background-color: rgb(245, 255, 110);
 }
 
 .heading {

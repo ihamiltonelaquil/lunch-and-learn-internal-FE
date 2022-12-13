@@ -1,12 +1,15 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import LandingPage from "../components/LandingPage";
+import Navbar from "../components/Navigation/Navbar";
+import MainPage from "../components/MainPage";
+import MainCard from "../components/Cards/MainCard";
 
 const Index = () => {
   const { user, isLoading } = useUser();
 
   return (
     <>
-      {isLoading && <p>Loading login info...</p>}
+      {isLoading && <div>Loading login info...</div>}
 
       {!isLoading && !user && (
         <>
@@ -16,10 +19,8 @@ const Index = () => {
 
       {user && (
         <>
-          <p>nickname: {user.nickname}</p>
-          <p>name: {user.name}</p>
-
-          <a href="/api/auth/logout">Logout</a>
+          <MainCard />
+          {/* <MainPage /> */}
         </>
       )}
     </>
