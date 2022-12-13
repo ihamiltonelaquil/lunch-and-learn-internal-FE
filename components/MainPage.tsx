@@ -2,7 +2,6 @@ import styles from "../styles/Mainpage.module.css";
 import Navbar from "./Navigation/Navbar";
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import MainPageCard from "./Cards/MainCard";
-import Link from "next/link";
 
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
@@ -17,7 +16,7 @@ const MainPage = () => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchName(event.target.value);
   };
-
+  
   useEffect(() => {
     fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
       .then((res) => res.json())
@@ -56,13 +55,15 @@ const MainPage = () => {
         <div>
           {landingData.map((data) => {
             {
+              const parsedDate = convertToDate(data.meetingTime);
               return (
                 <>
-                  <div key={data.meetingID} className="container">
+                  <div className="container">
                     <div key={data.meetingID}>
+                      <img src=""></img>
                       <p>{data.creatorName}</p>
                     </div>
-                  </div>
+                  </StyledContainer>
                 </>
               );
             }

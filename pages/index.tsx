@@ -9,12 +9,12 @@ const Index = () => {
 
   return (
     <>
-      {isLoading && <div>Loading login info...</div>}
+      {isLoading && <>Loading login info...</>}
 
       {!isLoading && !user && (
-        <>
+        <div>
           <LandingPage />
-        </>
+        </div>
       )}
 
       {user && (
