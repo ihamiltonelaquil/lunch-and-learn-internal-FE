@@ -18,10 +18,9 @@ const Index = () => {
       )}
 
       {user && (
-        <>
-          {/* <MainCard /> */}
+        <div>
           <MainPage />
-        </>
+        </div>
       )}
     </>
   );
