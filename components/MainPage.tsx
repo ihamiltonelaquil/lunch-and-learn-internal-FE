@@ -6,11 +6,11 @@ import MainPageCard from "./Cards/MainCard";
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
   const [searchName, setSearchName] = useState("");
-  const [searchText, setsearchText] = useState("");
+  const [searchText, setSearchText] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setsearchText(searchName);
+    setSearchText(searchName);
     setSearchName("");
   };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,12 @@ const MainPage = () => {
       });
   }, [landingData]);
 
-  if (!landingData) return <div>No data</div>;
+  if (!Array.isArray(landingData))
+    return (
+      <>
+        <div>Need to do error message here</div>
+      </>
+    );
 
   return (
     <>
@@ -48,12 +53,11 @@ const MainPage = () => {
             {
               return (
                 <>
-                  <div key={data.meetingID}>
-                    <img src=""></img>
-                    <p>{data.creatorName}</p>
-                  </div>
-                  <div className="background-container">
-                    <div className="main-card"></div>
+                  <div className="container">
+                    <div key={data.meetingID}>
+                      <img src=""></img>
+                      <p>{data.creatorName}</p>
+                    </div>
                   </div>
                 </>
               );
