@@ -46,7 +46,7 @@ export const StyledCard = styled.div`
     text-align: center;
     width: auto;
     max-width: 800px;
-    min-width: 600px;
+    min-width: var(--mw-mobileM);
     font-size: var(--fs-base);
     font-family: var(--ff-primary);
     cursor: pointer;

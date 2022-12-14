@@ -53,7 +53,7 @@ const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
                     }
                 </h3>
             </div>
-            <span className="buttons">
+            <span className="buttons row justify-content-center">
                 <StyledMeetingCardButton>Leave a question for Parthay</StyledMeetingCardButton>
                 <StyledMeetingCardButton>More Information</StyledMeetingCardButton>
             </span>

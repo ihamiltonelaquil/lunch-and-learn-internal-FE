@@ -26,6 +26,13 @@
   --fw-normal: 400;
   --fw-light: 300;
   --rounded-corners: 40px;
+  --mw-mobileS: 320px;
+  --mw-mobileM: 375px;
+  --mw-mobileL: 425px;
+  --mw-tablet: 768px;
+  --mw-laptop: 1024px;
+  --mw-laptopL: 1440px;
+  --mw-desktop: 2560px;
 
   /* Alternative spelling options */
   --color-primary: var(--colour-primary);
@@ -60,7 +67,7 @@
 html,
 body {
   height: 100vh;
-  background-color: rgb(252, 252, 252);
+  background-color: rgb(255, 255, 255);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
