@@ -11,11 +11,17 @@ const MainPage = () => {
   const [searchName, setSearchName] = useState("");
   const [searchText, setSearchText] = useState("");
 
+  //this is how the backend interprets dates, could be useful
+  var date = new Date();
+  console.log(date.toJSON());
+
+  //refactor into sep file
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchText(searchName);
     setSearchName("");
   };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchName(event.target.value);
   };
@@ -56,6 +62,10 @@ const MainPage = () => {
             <Link className="btn btn-dark" href="/CRUD/createMeeting">
               Create
             </Link>
+
+            <Link className="btn btn-dark" href="/CRUD/updateMeeting">
+              Update
+            </Link>
           </form>
         </div>
 
@@ -63,6 +73,7 @@ const MainPage = () => {
           {landingData.map((data) => {
             {
               const parsedDate = convertToDate(data.meetingTime);
+              console.log("p", parsedDate);
               return (
                 <>
                   <div className="container">

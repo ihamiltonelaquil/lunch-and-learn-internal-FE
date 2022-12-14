@@ -4,12 +4,9 @@ import Navbar from "../../components/Navigation/Navbar";
 import MainPage from "../../components/MainPage";
 import MainCard from "../../components/Cards/MainCard";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { stat } from "fs";
 import Link from "next/link";
 
 const createMeeting = () => {
-  const [resultData, setResultData] = useState<any[]>([]);
-
   const [creatorName, setCreatorName] = useState("");
   const [meetingTime, setMeetingTime] = useState("");
   const [topic, setTopic] = useState("");
@@ -49,28 +46,33 @@ const createMeeting = () => {
           <div className="container w-50 float-start">
             <div className="form-group">
               <input
-                id="testInput"
-                className="form-control"
+                placeholder="Name"
+                className="form-control mb-2"
                 onChange={(e) => setCreatorName(e.target.value)}
               />
               <input
-                className="form-control"
+                placeholder="Time"
+                className="form-control mb-2"
                 onChange={(e) => setMeetingTime(e.target.value)}
               />
               <input
-                className="form-control"
+                placeholder="Topic"
+                className="form-control mb-2"
                 onChange={(e) => setTopic(e.target.value)}
               />
               <input
-                className="form-control"
+                placeholder="Description"
+                className="form-control mb-2"
                 onChange={(e) => setDescription(e.target.value)}
               />
               <input
-                className="form-control"
+                placeholder="Link to slides or something"
+                className="form-control mb-2"
                 onChange={(e) => setLinkToSlides(e.target.value)}
               />
               <input
-                className="form-control"
+                placeholder="Another link"
+                className="form-control mb-2"
                 onChange={(e) => setTeamsLink(e.target.value)}
               />
             </div>
