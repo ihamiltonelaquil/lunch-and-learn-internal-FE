@@ -55,9 +55,10 @@ export function timeOffset(now: Date, start: Date, end: Date){
         updatedMeetingState.meetingOffset = "Now";
     } else if (diffSecondsEnd < 0) {
         updatedMeetingState.meetingStatus = "Happened";
+        updatedMeetingState.meetingOffset = "Today";
         if (diffDaysStart == -2) {
             updatedMeetingState.meetingOffset = Math.abs(diffDaysStart + 1) + " Day Ago";
-        } else {
+        } else if (diffDaysStart < -2) {
             updatedMeetingState.meetingOffset = Math.abs(diffDaysStart + 1) + " Days Ago";
         }
     } else {

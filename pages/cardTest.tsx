@@ -4,8 +4,8 @@ export default function cardTest(){
     const data = {
         meetingID: 1,
         topic: "TailWind CSS",
-        meetingStart: "2022-12-11T10:57:00",
-        meetingEnd: "2022-12-11T13:00:00",
+        meetingStart: "2022-12-13T01:00:00",
+        meetingEnd: "2022-12-13T02:00:00",
         creatorName: "Parthay Bhatt",
         description: "Test Description"
     }
