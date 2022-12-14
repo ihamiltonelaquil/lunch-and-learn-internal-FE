@@ -1,4 +1,5 @@
-import { convertToDate, dateFormatter, timeFormatter } from "../../lib/dateHelper";
+import { convertToDate, dateFormatter, timeFormatter, timeOffset } from "../../lib/dateHelper";
+import React, { useState, useEffect } from 'react';
 
 interface MeetingData {
     meetingID: number;
@@ -12,54 +13,23 @@ interface MeetingData {
 const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
     const { meetingID, topic, meetingStart, meetingEnd, creatorName } = meetingData;
 
-    const now = new Date();
-    console.log(now.getTime());
-    console.log(convertToDate(meetingEnd).getTime());
-    var timeDiff = ((convertToDate(meetingStart)).getTime() - now.getTime());
-    const diffDaysStart = Math.floor(timeDiff / (1000 * 3600 * 24));
-    const diffHoursStart = Math.floor(timeDiff / (1000 * 3600));
-    const diffMinutesStart = Math.floor(timeDiff / (1000 * 60));
-    const diffSecondsStart = Math.floor(timeDiff / (1000));
-    timeDiff = ((convertToDate(meetingEnd)).getTime() - now.getTime());
-    const diffSecondsEnd = Math.floor(timeDiff / (1000))
+    const start = convertToDate(meetingStart);
+    const end = convertToDate(meetingEnd);
+    var now = new Date();
 
-    const meetingState = {
-        meetingStatus: "Happening in",
-        meetingOffset: diffDaysStart + " Days"
-    }
+    const [meetingState, setMeetingState] = useState({
+        meetingStatus: timeOffset(now, start, end).meetingStatus,
+        meetingOffset: timeOffset(now, start, end).meetingOffset
+    });
 
-    console.log(diffSecondsStart)
-    console.log(diffSecondsEnd + " " + diffSecondsStart);
 
-    if(diffSecondsStart > 0){
-        if (diffDaysStart > 1) {
-            meetingState.meetingOffset = diffDaysStart + " Days";
-        } else if (diffDaysStart === 1) {
-            meetingState.meetingOffset = diffDaysStart + " Day";
-        } else if (diffDaysStart < 1) {
-            meetingState.meetingOffset = diffHoursStart + " Hours";
-            if (diffHoursStart < 1) {
-                meetingState.meetingOffset = diffMinutesStart + " Minutes";
-                if (diffMinutesStart < 1) {
-                    meetingState.meetingOffset = diffSecondsStart + " Seconds";
-                }
-            }
-        }
-    }
-    else if(diffSecondsEnd > 0 && diffSecondsStart < 0){
-        meetingState.meetingStatus = "Happening";
-        meetingState.meetingOffset = "Now";
-    }
-    else{
-        meetingState.meetingStatus = "Happened";
-        meetingState.meetingOffset = "Today";
-        if(diffDaysStart == -2){
-            meetingState.meetingOffset = Math.abs(diffDaysStart+1) + " Day Ago";
-        }
-        else if(diffDaysStart < -2){
-            meetingState.meetingOffset = Math.abs(diffDaysStart+1) + " Days Ago";
-        }
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            now = new Date();
+            var updatedMeetingState = timeOffset(now, start, end);
+            setMeetingState(updatedMeetingState);
+        }, 1000);
+    }, [meetingState]);
 
 
 
@@ -70,16 +40,16 @@ const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
                 <p>Presented by</p>
                 <h3>{creatorName}</h3>
                 <br></br>
-                
+
                 <p>{meetingState.meetingStatus}</p>
                 <h3>{meetingState.meetingOffset}</h3>
-                
+
                 <p>at</p>
                 <h3>
                     {
-                    (timeFormatter.format(convertToDate(meetingStart)))+"-"
-                    +(timeFormatter.format(convertToDate(meetingEnd)))+" "
-                    +(dateFormatter.format(convertToDate(meetingStart)))
+                        (timeFormatter.format(convertToDate(meetingStart))) + "-"
+                        + (timeFormatter.format(convertToDate(meetingEnd))) + " "
+                        + (dateFormatter.format(convertToDate(meetingStart)))
                     }
                 </h3>
             </div>
