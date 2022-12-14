@@ -1,8 +1,3 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
-import LandingPage from "../../components/LandingPage";
-import Navbar from "../../components/Navigation/Navbar";
-import MainPage from "../../components/MainPage";
-import MainCard from "../../components/Cards/MainCard";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 
@@ -14,7 +9,10 @@ const updateMeeting = () => {
   const [description, setDescription] = useState("");
   const [linkToSlides, setLinkToSlides] = useState("");
   const [teamsLink, setTeamsLink] = useState("");
-  const [meetingID, setMeetingID] = useState("");
+
+  const [meetingID, setMeetingID] = useState<any>();
+  const [meetingName, setMeetingName] = useState<any>();
+  const [response, setResponse] = useState<any>();
 
   //search variables
   const [searchData, setSearchData] = useState<any[]>([]);
@@ -41,16 +39,11 @@ const updateMeeting = () => {
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const meetingID = event.currentTarget.getAttribute("data-meetingid");
-    if (meetingID != null) {
-      fetch(`https://localhost:555/api/LunchAndLearn/${meetingID}`, {
-        method: "PUT",
-        mode: "cors",
-      });
-    }
+    setMeetingID(event.currentTarget.getAttribute("data-meetingid"));
+    setMeetingName(event.currentTarget.getAttribute("data-meetingname"));
   };
 
-  function saveData(event: React.MouseEvent<HTMLButtonElement>) {
+  function saveData() {
     let data = {
       creatorName,
       meetingTime,
@@ -59,7 +52,6 @@ const updateMeeting = () => {
       linkToSlides,
       teamsLink,
     };
-    const meetingID = event.currentTarget.getAttribute("data-meetingid");
     fetch(`https://localhost:555/api/LunchAndLearn/${meetingID}`, {
       method: "PUT",
       headers: {
@@ -67,24 +59,25 @@ const updateMeeting = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((response) => console.warn("resp", response));
+    }).then((response) => setResponse(response));
   }
-  if (meetingID == new String()) {
+  if (meetingID == undefined) {
     return (
       <>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Type a name
-            <input value={searchText} onChange={handleChange}></input>
-          </label>
-          <button type="submit" value="Submit">
-            Submit
-          </button>
-        </form>
-        <div className="container w-50 mb-3">
-          <Link className="btn btn-dark" href="/">
-            Home
-          </Link>
+        <div className="inputForm">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Type a name
+              <input value={searchName} onChange={handleChange}></input>
+            </label>
+            <button type="submit" value="Submit">
+              Submit
+            </button>
+
+            <Link className="btn btn-dark" href="/">
+              Home
+            </Link>
+          </form>
         </div>
 
         {searchData.map((data) => {
@@ -98,6 +91,7 @@ const updateMeeting = () => {
                     <button
                       className="btn btn-dark btn-sm"
                       data-meetingid={data.meetingID}
+                      data-meetingname={data.creatorName}
                       onClick={buttonHandler}
                     >
                       Update Meeting
@@ -108,49 +102,75 @@ const updateMeeting = () => {
             </>
           );
         })}
-
-        <div className="container w-50">
-          <form>
-            <div className="container w-50 float-start">
-              <div className="form-group">
-                <input
-                  id="testInput"
-                  className="form-control"
-                  onChange={(e) => setCreatorName(e.target.value)}
-                />
-                <input
-                  className="form-control"
-                  onChange={(e) => setMeetingTime(e.target.value)}
-                />
-                <input
-                  className="form-control"
-                  onChange={(e) => setTopic(e.target.value)}
-                />
-                <input
-                  className="form-control"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                <input
-                  className="form-control"
-                  onChange={(e) => setLinkToSlides(e.target.value)}
-                />
-                <input
-                  className="form-control"
-                  onChange={(e) => setTeamsLink(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="input-group-append">
-              <button className="btn btn-dark btn-sm" onClick={saveData}>
-                Create
-              </button>
-            </div>
-          </form>
-        </div>
       </>
     );
   }
-  return <>Not empty</>;
+  return (
+    <>
+      <div className="inputForm">
+        <form onSubmit={handleSubmit}>
+          <label>
+            Type a name
+            <input value={searchName} onChange={handleChange}></input>
+          </label>
+          <button type="submit" value="Submit">
+            Submit
+          </button>
+
+          <Link className="btn btn-dark" href="/">
+            Home
+          </Link>
+        </form>
+      </div>
+
+      <div className="container w-50">
+        <h5>Update meeting details for {meetingName}</h5>
+        <form>
+          <div className="container w-50 float-start">
+            <div className="form-group">
+              <input
+                id="testInput"
+                className="form-control"
+                placeholder="Update creator name"
+                onChange={(e) => setCreatorName(e.target.value)}
+              />
+              <input
+                placeholder="Update meeting time"
+                className="form-control"
+                onChange={(e) => setMeetingTime(e.target.value)}
+              />
+              <input
+                placeholder="Update topic"
+                className="form-control"
+                onChange={(e) => setTopic(e.target.value)}
+              />
+
+              <input
+                placeholder="Update description"
+                className="form-control"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <input
+                placeholder="Update link to slides"
+                className="form-control"
+                onChange={(e) => setLinkToSlides(e.target.value)}
+              />
+              <input
+                placeholder="Update link to teams"
+                className="form-control"
+                onChange={(e) => setTeamsLink(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="input-group-append">
+            <button className="btn btn-dark btn-sm" onClick={saveData}>
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default updateMeeting;
