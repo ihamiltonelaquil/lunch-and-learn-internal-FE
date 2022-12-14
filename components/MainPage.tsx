@@ -21,7 +21,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/LunchAndLearn/get/${searchText}`)
+    fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setLandingData(data);
@@ -49,8 +49,12 @@ const MainPage = () => {
               Submit
             </button>
 
-            <Link className="btn btn-dark" href="/deleteMeeting">
+            <Link className="btn btn-dark" href="/CRUD/deleteMeeting">
               Delete
+            </Link>
+
+            <Link className="btn btn-dark" href="/CRUD/createMeeting">
+              Create
             </Link>
           </form>
         </div>

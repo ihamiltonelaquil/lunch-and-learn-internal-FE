@@ -1,16 +1,16 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
-import LandingPage from "../components/LandingPage";
-import Navbar from "../components/Navigation/Navbar";
-import MainPage from "../components/MainPage";
-import MainCard from "../components/Cards/MainCard";
+import LandingPage from "../../components/LandingPage";
+import Navbar from "../../components/Navigation/Navbar";
+import MainPage from "../../components/MainPage";
+import MainCard from "../../components/Cards/MainCard";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { stat } from "fs";
+import Link from "next/link";
 
 const deleteMeeting = () => {
-  const [allData, setAllData] = useState<any[]>([]);
   const [resultData, setResultData] = useState<any[]>([]);
   const [searchName, setSearchName] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [deleteID, setDeleteID] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,12 +24,17 @@ const deleteMeeting = () => {
 
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const meetingID = event.currentTarget.getAttribute("data-meetingID");
-    console.log(meetingID);
+    const meetingID = event.currentTarget.getAttribute("data-meetingid");
+    if (meetingID != null) {
+      fetch(`https://localhost:555/api/LunchAndLearn/${meetingID}`, {
+        method: "DELETE",
+        mode: "cors",
+      });
+    }
   };
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/LunchAndLearn/get/${searchText}`)
+    fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setResultData(data);
@@ -59,6 +64,9 @@ const deleteMeeting = () => {
             <button className="btn-dark btn" type="submit" value="Submit">
               Submit
             </button>
+            <Link className="btn btn-dark" href="/">
+              Home
+            </Link>
           </form>
         </div>
       </div>
@@ -67,14 +75,14 @@ const deleteMeeting = () => {
           {
             return (
               <>
-                <div className="container w-50">
+                <div key={data.meetingID} className="container w-50">
                   <div className="input-group m-2">
-                    <div className="" key={data.meetingID}></div>
+                    <div className=""></div>
                     <div className="form-control">{data.creatorName}</div>
                     <div className="input-group-append">
                       <button
                         className="btn btn-dark btn-sm"
-                        data-meetingID={data.meetingID}
+                        data-meetingid={data.meetingID}
                         onClick={buttonHandler}
                       >
                         Delete
