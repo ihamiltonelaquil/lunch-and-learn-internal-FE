@@ -1,5 +1,6 @@
 import { convertToDate, dateFormatter, timeFormatter, timeOffset } from "../../lib/dateHelper";
 import React, { useState, useEffect } from 'react';
+import { StyledCard, StyledMeetingCardButton } from "../styledComponents";
 
 interface MeetingData {
     meetingID: number;
@@ -34,12 +35,11 @@ const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
 
 
     return (
-        <div key={meetingID}>
+        <StyledCard key={meetingID}>
             <div className="mainContent">
-                <h1><strong>{topic}</strong></h1>
+                <h1>{topic}</h1>
                 <p>Presented by</p>
                 <h3>{creatorName}</h3>
-                <br></br>
 
                 <p>{meetingState.meetingStatus}</p>
                 <h3>{meetingState.meetingOffset}</h3>
@@ -53,11 +53,11 @@ const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
                     }
                 </h3>
             </div>
-            <div className="buttons">
-                <button>Leave a question for Parthay</button>
-                <button>More Information</button>
-            </div>
-        </div>
+            <span className="buttons">
+                <StyledMeetingCardButton>Leave a question for Parthay</StyledMeetingCardButton>
+                <StyledMeetingCardButton>More Information</StyledMeetingCardButton>
+            </span>
+        </StyledCard>
     )
 };
 
