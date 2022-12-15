@@ -1,12 +1,13 @@
 export const dateFormatter = new Intl.DateTimeFormat("en-AU", {
     day:    'numeric',
     month:  'numeric',
-    year:   'numeric',
+    year:   '2-digit',
 })
 
 export const timeFormatter = new Intl.DateTimeFormat("en-AU", {
     hour:   '2-digit',
     minute: '2-digit',
+    hour12: false,
 })
 
 export function convertToDate(dateString: string): Date {
