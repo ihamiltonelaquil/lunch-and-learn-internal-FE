@@ -19,7 +19,7 @@
   --fs-sm: 0.875rem;
   --fs-md: 1rem;
   --fs-lg: 1.125rem;
-  --fs-xl: 1.25rem;
+  --fs-xl: 1.5rem;
   --fs-xxl: 3.5rem;
   --fw-bold: 900;
   --fw-semi-bold: 600;
@@ -91,4 +91,12 @@ a {
     color: white;
     background: black;
   }
+}
+
+.css-transitions-only-after-page-load * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }
