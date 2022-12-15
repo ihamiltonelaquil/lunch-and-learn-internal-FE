@@ -37,7 +37,6 @@ export const StyledCard = styled.div`
     padding: 16px;
     display: flex;
     margin: 0 auto;
-    margin-top: 30px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -87,7 +86,7 @@ export const StyledMeetingCardButton = styled.button`
     margin-left: 5px;
     margin-right: 5px;
     padding: 16px;
-    /* transition: 0.2s ease-out; */
+    transition: 0.2s ease-out;
     :hover{
         background-color: var(--colour-accent);
         color: var(--colour-primary-light);
@@ -102,26 +101,30 @@ export const StyledMeetingCardButton = styled.button`
     }
 `
 
-export const StyledExpandedMeetingCard =styled.div`
+export const StyledExpandedMeetingCard = styled.div`
     border: 4px solid var(--colour-primary);
     border-radius: var(--rounded-corners);
     background-color: var(--colour-primary-light);
     color: var(--colour-text);
     text-align: center;
     margin: auto;
-    position: absolute;
+    padding: 16px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     max-width: 1000px;
+    width: 1000px;
     min-width: var(--mw-mobileM);
     font-size: var(--fs-base);
     font-family: var(--ff-primary);
-    cursor: pointer;
     z-index: 10;
 
-
-    /* .mainContent {
+    .mainContent {
         margin-top: 30px;
         margin-bottom: 40px;
-
+        width: 75%;
+        margin: 30px auto;
     }
     h1{
 
@@ -141,7 +144,7 @@ export const StyledExpandedMeetingCard =styled.div`
     }
     span{
         width: 100%;
-    } */
+    }
 `
 
 export const DarkBG = styled.div`
@@ -149,7 +152,12 @@ export const DarkBG = styled.div`
     opacity: 30%;
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     cursor: pointer;
     z-index: 5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
 `

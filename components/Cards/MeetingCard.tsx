@@ -1,37 +1,54 @@
 import {
-  convertToDate,
-  dateFormatter,
-  timeFormatter,
-  timeOffset,
+    convertToDate,
+    dateFormatter,
+    timeFormatter,
+    timeOffset,
 } from "../../lib/dateHelper";
 import React, { useState, useEffect } from "react";
 import { StyledCard, StyledMeetingCardButton, DarkBG } from "../styledComponents";
 import ExpandedMeetingCard from "./ExpandedMeetingCard";
+import { animated, useTransition, easings } from "@react-spring/web";
 
 interface MeetingData {
-  meetingID: number;
-  topic: string;
-  meetingStart: string;
-  meetingEnd: string;
-  creatorName: string;
-  description: string;
+    meetingID: number;
+    topic: string;
+    meetingStart: string;
+    meetingEnd: string;
+    creatorName: string;
+    description: string;
 }
 
 const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
-  const { meetingID, topic, meetingStart, meetingEnd, creatorName } =
-    meetingData;
+    const { meetingID, topic, meetingStart, meetingEnd, creatorName } =
+        meetingData;
 
-  const start = convertToDate(meetingStart);
-  const end = convertToDate(meetingEnd);
-  var now = new Date();
+    const start = convertToDate(meetingStart);
+    const end = convertToDate(meetingEnd);
+    var now = new Date();
 
     const [meetingState, setMeetingState] = useState({
         meetingStatus: timeOffset(now, start, end).meetingStatus,
         meetingOffset: timeOffset(now, start, end).meetingOffset
     });
 
-    const [expandedCardIsVisible, setExpandedCardIsVisible]= useState(false);
+    const [expandedCardIsVisible, setExpandedCardIsVisible] = useState(false);
 
+    function toggleExpandedCard(){
+        setExpandedCardIsVisible(v => !v)
+    }
+
+    const transition = useTransition(expandedCardIsVisible, {
+        config: {duration:100, easing: easings.easeOutCubic},
+        from: {
+            y:0, opacity:0, duration: 5000,
+        },
+        enter: {
+            y:0, opacity:1, duration: 5000,
+        },
+        leave: {
+            y:0, opacity:0, duration: 5000,
+        },
+    });
 
     useEffect(() => {
         setTimeout(() => {
@@ -43,15 +60,29 @@ const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
 
     return (
         <>
-            {expandedCardIsVisible && 
-            <>
-                <ExpandedMeetingCard />
-                <DarkBG onClick={() =>{
-                        setExpandedCardIsVisible(v => !v)
+        
+            {/* {expandedCardIsVisible &&
+                <>
+                    <ExpandedMeetingCard meetingData={meetingData} onClick={toggleExpandedCard} />
+                    <DarkBG onClick={() => {
+                        toggleExpandedCard();
                     }}>
-                </DarkBG>
-            </>
-            }
+                    </DarkBG>
+                </>
+            } */}
+
+            {transition((style, item) => 
+            item &&
+                <>
+                    <animated.div style={style}>
+                        <ExpandedMeetingCard meetingData={meetingData} onClick={toggleExpandedCard} />  
+                        <DarkBG onClick={() => {
+                            toggleExpandedCard();
+                        }}>
+                            </DarkBG>
+                    </animated.div>
+                </>
+            )};
             <StyledCard key={meetingID}>
                 <div className="mainContent">
                     <h1>{topic}</h1>
@@ -72,8 +103,8 @@ const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
                 </div>
                 <span className="buttons row justify-content-center">
                     <StyledMeetingCardButton>Leave a question for {creatorName.split(' ')[0]}</StyledMeetingCardButton>
-                    <StyledMeetingCardButton onClick={() =>{
-                        setExpandedCardIsVisible(v => !v)
+                    <StyledMeetingCardButton onClick={() => {
+                        toggleExpandedCard();
                     }}>More Information</StyledMeetingCardButton>
                 </span>
             </StyledCard>
