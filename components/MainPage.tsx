@@ -11,10 +11,6 @@ const MainPage = () => {
   const [searchName, setSearchName] = useState("");
   const [searchText, setSearchText] = useState("");
 
-  //this is how the backend interprets dates, could be useful
-  var date = new Date();
-  console.log(date.toJSON());
-
   //refactor into sep file
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,7 +69,6 @@ const MainPage = () => {
           {landingData.map((data) => {
             {
               const parsedDate = convertToDate(data.meetingTime);
-              console.log("p", parsedDate);
               return (
                 <>
                   <div className="container">

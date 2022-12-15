@@ -3,15 +3,14 @@ import Link from "next/link";
 
 const updateMeeting = () => {
   //for PUT
-  const [creatorName, setCreatorName] = useState("");
-  const [meetingTime, setMeetingTime] = useState("");
-  const [topic, setTopic] = useState("");
-  const [description, setDescription] = useState("");
-  const [linkToSlides, setLinkToSlides] = useState("");
-  const [teamsLink, setTeamsLink] = useState("");
+  const [creatorName, setCreatorName] = useState<any>();
+  const [meetingTime, setMeetingTime] = useState<any>();
+  const [topic, setTopic] = useState<any>();
+  const [description, setDescription] = useState<any>();
+  const [linkToSlides, setLinkToSlides] = useState<any>();
+  const [teamsLink, setTeamsLink] = useState<any>();
 
   const [meetingID, setMeetingID] = useState<any>();
-  const [meetingName, setMeetingName] = useState<any>();
   const [response, setResponse] = useState<any>();
 
   //search variables
@@ -40,7 +39,12 @@ const updateMeeting = () => {
   const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setMeetingID(event.currentTarget.getAttribute("data-meetingid"));
-    setMeetingName(event.currentTarget.getAttribute("data-meetingname"));
+    setCreatorName(event.currentTarget.getAttribute("data-creatorname"));
+    setMeetingTime(event.currentTarget.getAttribute("data-meetingtime"));
+    setTopic(event.currentTarget.getAttribute("data-topic"));
+    setDescription(event.currentTarget.getAttribute("data-description"));
+    setLinkToSlides(event.currentTarget.getAttribute("data-linktoslides"));
+    setTeamsLink(event.currentTarget.getAttribute("data-linkteams"));
   };
 
   function saveData() {
@@ -61,6 +65,7 @@ const updateMeeting = () => {
       body: JSON.stringify(data),
     }).then((response) => setResponse(response));
   }
+
   if (meetingID == undefined) {
     return (
       <>
@@ -91,7 +96,12 @@ const updateMeeting = () => {
                     <button
                       className="btn btn-dark btn-sm"
                       data-meetingid={data.meetingID}
-                      data-meetingname={data.creatorName}
+                      data-creatorname={data.creatorName}
+                      data-meetingtime={data.meetingTime}
+                      data-topic={data.topic}
+                      data-description={data.description}
+                      data-linktoslides={data.linkToSlides}
+                      data-linkteams={data.teamsLink}
                       onClick={buttonHandler}
                     >
                       Update Meeting
@@ -124,7 +134,7 @@ const updateMeeting = () => {
       </div>
 
       <div className="container w-50">
-        <h5>Update meeting details for {meetingName}</h5>
+        <h5>Update meeting details for {creatorName}</h5>
         <form>
           <div className="container w-50 float-start">
             <div className="form-group">
@@ -132,33 +142,60 @@ const updateMeeting = () => {
                 id="testInput"
                 className="form-control"
                 placeholder="Update creator name"
-                onChange={(e) => setCreatorName(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setCreatorName(e.target.value);
+                  }
+                }}
               />
               <input
                 placeholder="Update meeting time"
                 className="form-control"
-                onChange={(e) => setMeetingTime(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setMeetingTime(e.target.value);
+                  }
+                }}
               />
+
               <input
                 placeholder="Update topic"
                 className="form-control"
-                onChange={(e) => setTopic(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setTopic(e.target.value);
+                  }
+                }}
               />
 
               <input
                 placeholder="Update description"
                 className="form-control"
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setDescription(e.target.value);
+                  }
+                }}
               />
+
               <input
                 placeholder="Update link to slides"
                 className="form-control"
-                onChange={(e) => setLinkToSlides(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setLinkToSlides(e.target.value);
+                  }
+                }}
               />
+
               <input
                 placeholder="Update link to teams"
                 className="form-control"
-                onChange={(e) => setTeamsLink(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setTeamsLink(e.target.value);
+                  }
+                }}
               />
             </div>
           </div>

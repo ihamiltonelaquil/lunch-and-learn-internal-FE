@@ -46,45 +46,47 @@ const createMeeting = () => {
       </div>
 
       <div className="container w-50">
-        <div className="container w-50 float-start">
-          <div className="form-group">
-            <input
-              placeholder="Name"
-              className="form-control mb-2"
-              onChange={(e) => setCreatorName(e.target.value)}
-            />
-            <input
-              placeholder="Time"
-              className="form-control mb-2"
-              onChange={(e) => setMeetingTime(e.target.value)}
-            />
-            <input
-              placeholder="Topic"
-              className="form-control mb-2"
-              onChange={(e) => setTopic(e.target.value)}
-            />
-            <input
-              placeholder="Description"
-              className="form-control mb-2"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <input
-              placeholder="Link to slides or something"
-              className="form-control mb-2"
-              onChange={(e) => setLinkToSlides(e.target.value)}
-            />
-            <input
-              placeholder="Another link"
-              className="form-control mb-2"
-              onChange={(e) => setTeamsLink(e.target.value)}
-            />
+        <form>
+          <div className="container w-50 float-start">
+            <div className="form-group">
+              <input
+                placeholder="Name"
+                className="form-control mb-2"
+                onChange={(e) => setCreatorName(e.target.value)}
+              />
+              <input
+                placeholder="Time"
+                className="form-control mb-2"
+                onChange={(e) => setMeetingTime(e.target.value)}
+              />
+              <input
+                placeholder="Topic"
+                className="form-control mb-2"
+                onChange={(e) => setTopic(e.target.value)}
+              />
+              <input
+                placeholder="Description"
+                className="form-control mb-2"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <input
+                placeholder="Link to slides or something"
+                className="form-control mb-2"
+                onChange={(e) => setLinkToSlides(e.target.value)}
+              />
+              <input
+                placeholder="Another link"
+                className="form-control mb-2"
+                onChange={(e) => setTeamsLink(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="input-group-append">
-          <button className="btn btn-dark btn-sm" onClick={saveData}>
-            Create
-          </button>
-        </div>
+          <div className="input-group-append">
+            <button className="btn btn-dark btn-sm" onClick={saveData}>
+              Create
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );
