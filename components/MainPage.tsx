@@ -5,6 +5,7 @@ import MainPageCard from "./Cards/MainCard";
 import { StyledContainer } from "./styledComponents";
 import Link from "next/link";
 import { convertToDate } from "../lib/dateHelper";
+import MeetingCard from "./Cards/MeetingCard";
 
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
@@ -72,12 +73,7 @@ const MainPage = () => {
               const parsedDate = convertToDate(data.meetingTime);
               return (
                 <>
-                  <div className="container">
-                    <div key={data.meetingID}>
-                      <p>{data.creatorName}</p>
-                    </div>
-                  </div>
-                  <StyledContainer />
+                  <MeetingCard meetingData={data} />
                 </>
               );
             }
