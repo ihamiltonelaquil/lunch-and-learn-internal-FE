@@ -4,7 +4,8 @@ import Link from "next/link";
 const updateMeeting = () => {
   //for PUT
   const [creatorName, setCreatorName] = useState<any>();
-  const [meetingTime, setMeetingTime] = useState<any>();
+  const [meetingStart, setMeetingStart] = useState<any>();
+  const [meetingEnd, setMeetingEnd] = useState<any>();
   const [topic, setTopic] = useState<any>();
   const [description, setDescription] = useState<any>();
   const [linkToSlides, setLinkToSlides] = useState<any>();
@@ -40,7 +41,8 @@ const updateMeeting = () => {
     event.preventDefault();
     setMeetingID(event.currentTarget.getAttribute("data-meetingid"));
     setCreatorName(event.currentTarget.getAttribute("data-creatorname"));
-    setMeetingTime(event.currentTarget.getAttribute("data-meetingtime"));
+    setMeetingStart(event.currentTarget.getAttribute("data-meetingstart"));
+    setMeetingEnd(event.currentTarget.getAttribute("data-meetingend"));
     setTopic(event.currentTarget.getAttribute("data-topic"));
     setDescription(event.currentTarget.getAttribute("data-description"));
     setLinkToSlides(event.currentTarget.getAttribute("data-linktoslides"));
@@ -50,7 +52,8 @@ const updateMeeting = () => {
   function saveData() {
     let data = {
       creatorName,
-      meetingTime,
+      meetingStart,
+      meetingEnd,
       topic,
       description,
       linkToSlides,
@@ -97,7 +100,8 @@ const updateMeeting = () => {
                       className="btn btn-dark btn-sm"
                       data-meetingid={data.meetingID}
                       data-creatorname={data.creatorName}
-                      data-meetingtime={data.meetingTime}
+                      data-meetingstart={data.meetingStart}
+                      data-meetingend={data.meetingEnd}
                       data-topic={data.topic}
                       data-description={data.description}
                       data-linktoslides={data.linkToSlides}
@@ -149,11 +153,20 @@ const updateMeeting = () => {
                 }}
               />
               <input
-                placeholder="Update meeting time"
+                placeholder="Update meeting start time"
                 className="form-control"
                 onChange={(e) => {
                   if (e.target.value) {
-                    setMeetingTime(e.target.value);
+                    setMeetingStart(e.target.value);
+                  }
+                }}
+              />
+              <input
+                placeholder="Update meeting end time"
+                className="form-control"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setMeetingEnd(e.target.value);
                   }
                 }}
               />

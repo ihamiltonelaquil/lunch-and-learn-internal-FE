@@ -1,23 +1,29 @@
-import { convertToDate, dateFormatter, timeFormatter, timeOffset } from "../../lib/dateHelper";
-import React, { useState, useEffect } from 'react';
+import {
+  convertToDate,
+  dateFormatter,
+  timeFormatter,
+  timeOffset,
+} from "../../lib/dateHelper";
+import React, { useState, useEffect } from "react";
 import { StyledCard, StyledMeetingCardButton, DarkBG } from "../styledComponents";
 import ExpandedMeetingCard from "./ExpandedMeetingCard";
 
 interface MeetingData {
-    meetingID: number;
-    topic: string;
-    meetingStart: string;
-    meetingEnd: string;
-    creatorName: string;
-    description: string;
+  meetingID: number;
+  topic: string;
+  meetingStart: string;
+  meetingEnd: string;
+  creatorName: string;
+  description: string;
 }
 
 const MainCard: React.FC<{ meetingData: MeetingData }> = ({ meetingData }) => {
-    const { meetingID, topic, meetingStart, meetingEnd, creatorName } = meetingData;
+  const { meetingID, topic, meetingStart, meetingEnd, creatorName } =
+    meetingData;
 
-    const start = convertToDate(meetingStart);
-    const end = convertToDate(meetingEnd);
-    var now = new Date();
+  const start = convertToDate(meetingStart);
+  const end = convertToDate(meetingEnd);
+  var now = new Date();
 
     const [meetingState, setMeetingState] = useState({
         meetingStatus: timeOffset(now, start, end).meetingStatus,

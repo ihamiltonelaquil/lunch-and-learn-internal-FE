@@ -41,6 +41,7 @@ const MainPage = () => {
     <>
       <div className={styles.container}>
         <Navbar />
+
         <div className="inputForm">
           <form onSubmit={handleSubmit}>
             <label>
