@@ -31,7 +31,7 @@ export const StyledContainer = styled.div`
 `
 
 export const StyledCard = styled.div`
-    border: 4px solid var(--colour-primary);
+    border: var(--border);
     border-radius: var(--rounded-corners);
     margin: 16px;
     padding: 16px;
@@ -46,13 +46,12 @@ export const StyledCard = styled.div`
     width: auto;
     max-width: 800px;
     min-width: var(--mw-mobileM);
-    /* min-height: 550px; */
+    min-height: 525px;
     font-size: var(--fs-base);
     font-family: var(--ff-primary);
-    cursor: pointer;
+    /* cursor: pointer; */
     .mainContent {
-        margin-top: 30px;
-        margin-bottom: 40px;
+        margin: auto;
 
     }
     h1{
@@ -77,7 +76,7 @@ export const StyledCard = styled.div`
 `
 export const StyledMeetingCardButton = styled.button`
     background-color: var(--colour-primary-light);
-    border: 4px solid var(--colour-primary);
+    border: var(--border);
     border-radius: var(--rounded-corners);
     font-weight: var(--fw-semi-bold);
     font-size: var(--fs-xl);
@@ -101,50 +100,16 @@ export const StyledMeetingCardButton = styled.button`
     }
 `
 
-export const StyledExpandedMeetingCard = styled.div`
-    border: 4px solid var(--colour-primary);
-    border-radius: var(--rounded-corners);
-    background-color: var(--colour-primary-light);
-    color: var(--colour-text);
-    text-align: center;
+export const StyledExpandedMeetingCard = styled(StyledCard)`
     margin: auto;
-    padding: 16px;
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     max-width: 1000px;
-    width: 1000px;
-    min-width: var(--mw-mobileM);
-    font-size: var(--fs-base);
-    font-family: var(--ff-primary);
+    min-width: 1000px;
+    min-height: 700px;
     z-index: 10;
-
-    .mainContent {
-        margin-top: 30px;
-        margin-bottom: 40px;
-        width: 75%;
-        margin: 30px auto;
-    }
-    h1{
-
-        font-size: var(--fs-xxl);
-        font-weight: var(--fw-bold);
-    }
-    h3{
-        padding: 0px;
-        margin: 0px;
-        font-size: var(--fs-xl);
-        font-weight: var(--fw-semi-bold);
-    }
-    p{
-        font-size: var(--fs-sm);
-        padding: 0px;
-        margin: 0px;
-    }
-    span{
-        width: 100%;
-    }
 `
 
 export const DarkBG = styled.div`

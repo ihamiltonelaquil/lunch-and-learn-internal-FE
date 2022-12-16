@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { convertToDate, dateFormatter, timeFormatter, timeOffset } from '../../lib/dateHelper';
 import AttachmentsList from '../AttachmentsList';
-import { StyledExpandedMeetingCard, StyledMeetingCardButton } from '../styledComponents'
+import { StyledExpandedMeetingCard, StyledMeetingCardButton } from '../styledComponents';
 
 interface MeetingData {
     meetingID: number;
@@ -39,7 +39,7 @@ const ExpandedMeetingCard: React.FC<{ meetingData: MeetingData, onClick: Dispatc
     }, [meetingState]);
     
     return (
-        <StyledExpandedMeetingCard>
+        <StyledExpandedMeetingCard key = { meetingID }>
             <div className="mainContent">
                     <h1>{topic}</h1>
                     <p>Presented by</p>
@@ -65,7 +65,6 @@ const ExpandedMeetingCard: React.FC<{ meetingData: MeetingData, onClick: Dispatc
                 <StyledMeetingCardButton onClick={handleOnClick}>
                     Close
                 </StyledMeetingCardButton>
-
             </span>
         </StyledExpandedMeetingCard>
     )

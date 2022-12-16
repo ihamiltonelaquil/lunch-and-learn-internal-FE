@@ -9,9 +9,9 @@
   --colour-accent-dark: #006b5e;
   --colour-text: #000;
   --colour-background: #fff;
-  --colour-grey: #4b4737;
-  --colour-grey-light: #b1ab99;
-  --colour-grey-dark: #312f26;
+  --colour-grey: #706c5d;
+  --colour-grey-light: #e1e1df;
+  --colour-grey-dark: #42403a;
   --ff-primary: 'Inter', sans-serif;
   --ff-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --ff-code: 'Fira Code', monospace;
@@ -33,6 +33,15 @@
   --mw-laptop: 1024px;
   --mw-laptopL: 1440px;
   --mw-desktop: 2560px;
+  --border: 4px solid var(--colour-primary);
+  --border-thin: 2px solid var(--colour-primary);
+  --border-thick: 6px solid var(--colour-primary);
+  --aborder: 4px solid var(--colour-accent);
+  --aborder-thin: 2px solid var(--colour-accent);
+  --aborder-thick: 6px solid var(--colour-accent);
+  --gborder: 4px solid var(--colour-grey);
+  --gborder-thin: 2px solid var(--colour-grey);
+  --gborder-thick: 6px solid var(--colour-grey);
 
   /* Alternative spelling options */
   --color-primary: var(--colour-primary);
@@ -60,7 +69,7 @@
 }
 
 @keyframes fadeOut {
-  0% { opacity: 1; }
+  0% { opacity : 1; }
   100% { opacity: 0; }
 }
 
@@ -100,10 +109,32 @@ a {
   }
 }
 
-.css-transitions-only-after-page-load * {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
+.deactivatedCardElement.deactivatedCardElement{
+  border: var(--gborder);
+  background-color: var(--colour-grey-light);
+}
+
+.profileImage{
+  height: 30px;
+  border-radius: 50%;
+}
+
+
+.slick-arrow.slick-arrow{
+  background: black;
+  border-radius: 50%;
+  transition: 0.2s ease-in-out;
+}
+
+.slick-arrow.slick-arrow:hover{
+  background: var(--colour-primary-dark);
+}
+
+.slick-prev {
+  left: 3% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 3% !important;
+  z-index: 1;
 }

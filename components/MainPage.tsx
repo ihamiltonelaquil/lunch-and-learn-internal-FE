@@ -6,6 +6,8 @@ import { StyledContainer } from "./styledComponents";
 import Link from "next/link";
 import { convertToDate } from "../lib/dateHelper";
 import MeetingCard from "./Cards/MeetingCard";
+import { UserProfile } from "@auth0/nextjs-auth0/client";
+import Greeting from "./Greeting";
 
 const MainPage = () => {
   const [landingData, setLandingData] = useState<any[]>([]);
@@ -42,7 +44,7 @@ const MainPage = () => {
     <>
       <div className={styles.container}>
         <Navbar />
-
+        <Greeting/>
         <div className="inputForm">
           <form onSubmit={handleSubmit}>
             <label>

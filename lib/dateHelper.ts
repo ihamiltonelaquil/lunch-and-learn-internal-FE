@@ -27,7 +27,9 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 		meetingStatus: "Happening in",
 		meetingOffset: diffDaysStart + " Days",
 	};
-
+	if ((end.getTime()-start.getTime())<0){
+		throw new Error("Meeting can not end before it starts!")
+	}
 	if (diffSecondsStart > 0) {
 		if (diffDaysStart > 1) {
 			updatedMeetingState.meetingOffset = diffDaysStart + " Days";
@@ -66,7 +68,11 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 				Math.abs(diffDaysStart + 1) + " Days Ago";
 		}
 	} else {
-		throw new Error("Something went wrong");
+		throw new Error("Error parsing date offset: \n"+
+						"Start time: " + start +"\n"+
+						"End time: " + end +"\n"+
+						"Current time: " + now +"\n"+
+						"Computed offsets (now-start, now-end)(seconds): " + diffSecondsStart + " " + diffSecondsEnd);
 	}
 	return updatedMeetingState;
 }
