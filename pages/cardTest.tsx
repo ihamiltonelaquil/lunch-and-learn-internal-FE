@@ -6,7 +6,7 @@ import { useState } from "react";
 import ExpandedMeetingCard from "../components/Cards/ExpandedMeetingCard";
 import { DarkBG } from "../components/styledComponents";
 
-export default function cardTest(){
+export default function CardTest(){
 
     const data = 
         [
@@ -63,7 +63,7 @@ export default function cardTest(){
             lazyLoad: "ondemand",
             swipeToSlide: true,
             onLazyLoad: function(){
-                return 3;
+                console.log("Lazy Load")
             },
             afterChange: (current: number) => setExpandedCardData(data[current]),
         };
