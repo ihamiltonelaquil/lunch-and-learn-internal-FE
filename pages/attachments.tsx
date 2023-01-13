@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import ReactLoading from "react-loading";
 import { convertToDate } from "../lib/dateHelper";
 
 export default function Attachments() {
 
-    const [file, setFile] = useState<File | null>(null)
+    const [file, setFile] = useState<File | null>(null);
     const [attachments, setAttachments] = useState<any[]>([]);
+    const [responseData, setResponseData] = useState<Response>();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         const fileList = event.target.files;
@@ -15,6 +18,9 @@ export default function Attachments() {
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setIsSubmitting(true);
+        console.log("upload");
+        console.log(responseData);
         const data = new FormData();
         const meetingId = "4a996676-19b6-4e87-3623-08daf1d1fcce";
         if (file) {
@@ -23,8 +29,10 @@ export default function Attachments() {
                 method: "POST",
                 body: data,
             });
+            setResponseData(res);
+            setFile(null);
         }
-
+        setIsSubmitting(false);
     }
 
     useEffect(() => {
@@ -36,18 +44,27 @@ export default function Attachments() {
     }, [attachments]);
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <input type="file" onChange={handleFileChange} />
-                <button type="submit">Upload</button>
-            </form>
+        <>  
+            {!isSubmitting ?
+                <form onSubmit={handleSubmit}>
+                    <input type="file" onChange={handleFileChange} />
+                    <button type="submit">Upload</button>
+                </form>
+                :
+                <ReactLoading type="bars" color="#87eec7" height={50} width={50}/>
+            }
+            {responseData == undefined ?
+                <></>
+                :
+                <p>{responseData.statusText}</p>
+            }
             <br></br>
             <h2>Attachments</h2>
             {attachments.map((data) => {
                 {
                     return (
                         <>
-                            <p>{data.fileName} - <a href={data.publicURI}>Download</a></p>
+                            <p id={data.attachmentId}>{data.fileName} - <a href={data.publicURI}>Download</a></p>
                         </>
                     );
                 }
