@@ -1,16 +1,62 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { AiOutlineUser } from "react-icons/ai";
+import { useState, FormEvent, ChangeEvent } from "react";
+import Link from "next/link";
+import styled from "styled-components";
+import DropDownNav from "./DropDownNav";
 
+const NavContainer = styled.div`
+  padding-top: 2%;
+  padding-right: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-family: helvetica;
+  font-size: 18px;
+
+  .raa {
+    margin-left: 4.4%;
+    position: absolute;
+    left: 0px;
+    width: 100px;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+    margin: 0 1rem;
+  }
+  a:hover {
+    color: gray;
+  }
+`;
 export default function Navbar() {
-  const { user } = useUser();
-  const pic = null;
+  const [searchName, setSearchName] = useState("");
+  const [searchText, setSearchText] = useState("");
+
+  //for search
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSearchText(searchName);
+    setSearchName("");
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchName(event.target.value);
+  };
+
   return (
     <>
-      <AiOutlineUser size={35} />
-        <img src={typeof user?.picture === "string" ? user.picture: "https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"} alt="Profile Image" className="profileImage"></img>
-      <nav>
-        <a href="/api/auth/logout">Logout</a>
-      </nav>
+      <NavContainer>
+        <img
+          className="raa"
+          src="https://www.previewindustries.com.au/wp-content/uploads/2021/06/raa-logo.png"
+        />
+        <Link href="/CRUD/deleteMeeting">Delete</Link>
+
+        <Link href="/CRUD/createMeeting">Create</Link>
+
+        <Link href="/CRUD/updateMeeting">Update</Link>
+
+        <DropDownNav />
+      </NavContainer>
     </>
   );
 }
