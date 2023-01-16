@@ -25,7 +25,7 @@ const CenteredDiv = styled.div<CenteredDivProps>`
 `;
 
 const GreetingCard = (props: { name: string }): JSX.Element => {
-  const [viewPort, isMobile] = useViewportWidth();
+  const [, isMobile] = useViewportWidth();
   const marginTop = isMobile ? 15 : 25;
   return (
     <CenteredDiv marginTop={marginTop}>

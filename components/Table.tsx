@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useViewportWidth } from "./Utils/useViewportWidth";
 
 interface Props {
   data: { [key: string]: any }[];
@@ -14,7 +15,6 @@ const TableContainer = styled.div`
 
 const TableStyled = styled.table`
   border-collapse: collapse;
-  width: 75%;
 `;
 
 const TableError = styled.h2`
@@ -34,6 +34,7 @@ const TableErrorContainer = styled.h5`
 `;
 
 const Table: React.FC<Props> = ({ data }) => {
+  const [, isMobile] = useViewportWidth();
   if (data.keys == undefined) {
     return (
       <TableErrorContainer>
@@ -41,10 +42,17 @@ const Table: React.FC<Props> = ({ data }) => {
         <TableErrorSmaller>Cannot find</TableErrorSmaller>
       </TableErrorContainer>
     );
-  } else
+  } else if (data.length === 0) {
+    return (
+      <TableErrorContainer>
+        <TableError>Error</TableError>
+        <TableErrorSmaller>No data found</TableErrorSmaller>
+      </TableErrorContainer>
+    );
+  } else {
     return (
       <TableContainer>
-        <TableStyled>
+        <TableStyled style={{ width: isMobile ? "100%" : "50%" }}>
           <thead>
             <tr>
               {Object.keys(data[0]).map((key) => (
@@ -64,6 +72,7 @@ const Table: React.FC<Props> = ({ data }) => {
         </TableStyled>
       </TableContainer>
     );
+  }
 };
 
 export default Table;

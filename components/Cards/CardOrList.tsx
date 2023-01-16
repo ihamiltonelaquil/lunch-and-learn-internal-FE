@@ -119,9 +119,5 @@ export default function CardOrList() {
       </>
     );
   }
-  return (
-    <CenteredDiv>
-      <Table data={tableData} />
-    </CenteredDiv>
-  );
+  return <Table data={tableData} />;
 }
