@@ -28,20 +28,6 @@ const NavContainer = styled.div`
   }
 `;
 export default function Navbar() {
-  const [searchName, setSearchName] = useState("");
-  const [searchText, setSearchText] = useState("");
-
-  //for search
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSearchText(searchName);
-    setSearchName("");
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchName(event.target.value);
-  };
-
   return (
     <>
       <NavContainer>
