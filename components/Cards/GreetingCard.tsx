@@ -21,12 +21,12 @@ const CenteredDiv = styled.div<CenteredDivProps>`
   flex-direction: column;
   width: 100%;
   margin-top: ${(props) => props.marginTop}px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 `;
 
 const GreetingCard = (props: { name: string }): JSX.Element => {
-  const [viewPort, isMobile] = useViewportWidth();
-  const marginTop = isMobile ? 25 : 35;
+  const [, isMobile] = useViewportWidth();
+  const marginTop = isMobile ? 15 : 25;
   return (
     <CenteredDiv marginTop={marginTop}>
       <StyledH5>Hi {props.name}!</StyledH5>
