@@ -138,3 +138,14 @@ a {
   right: 3% !important;
   z-index: 1;
 }
+
+.slider-init.slider-init{
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+.slick-slider{
+  transition: all 1s ease-in-out;
+  transform: translateY(-80px);
+  opacity: 0;
+}

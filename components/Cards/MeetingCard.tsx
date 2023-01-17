@@ -19,7 +19,7 @@ import {
 import ExpandedMeetingCard from "./ExpandedMeetingCard";
 
 interface MeetingData {
-  meetingID: number;
+  meetingID: string;
   topic: string;
   meetingStart: string;
   meetingEnd: string;

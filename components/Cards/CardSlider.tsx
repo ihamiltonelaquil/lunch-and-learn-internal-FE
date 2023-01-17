@@ -1,10 +1,12 @@
 import MeetingCard from "./MeetingCard";
 import Slider from "react-slick";
+import { LazyLoadTypes } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import ExpandedMeetingCard from "./ExpandedMeetingCard";
 import { DarkBG } from "../styledComponents";
+import { useComponentDidMount } from "../../lib/utils";
 
 export default function CardSlider() {
   const [cardData, setCardData] = useState<any[]>([]);
@@ -16,6 +18,16 @@ export default function CardSlider() {
         setCardData(data);
       });
   }, [cardData]);
+
+  useComponentDidMount(() => {
+    const slider = document.querySelector(".slick-slider");
+    if(slider){
+      setTimeout(() => {
+        if(!slider.classList.contains("slider-init"))
+          slider.className += " slider-init";
+      }, 400);
+    }
+  })
 
   const [expandedCardIsVisible, setExpandedCardIsVisible] = useState(false);
 
@@ -33,8 +45,9 @@ export default function CardSlider() {
     easing: "ease-in",
     initialSlide: 0,
     swipeToSlide: true,
+    lazyLoad: "ondemand" as LazyLoadTypes,
     onLazyLoad: function () {
-      return 3;
+      console.log("lazy load");
     },
     afterChange: (current: number) => setExpandedCardData(cardData[current]),
   };
@@ -42,6 +55,7 @@ export default function CardSlider() {
   function toggleExpandedCard() {
     setExpandedCardIsVisible((v) => !v);
   }
+  
 
   return (
     <>
@@ -58,12 +72,12 @@ export default function CardSlider() {
           ></DarkBG>
         </>
       )}
-      <br></br>
       <Slider {...settings}>
         {cardData.map((data) => {
           {
+            console.log(data.meetingID);
             return (
-              <MeetingCard meetingData={data} toggleCard={toggleExpandedCard} />
+              <MeetingCard key={data.meetingID} meetingData={data} toggleCard={toggleExpandedCard} />
             );
           }
         })}
