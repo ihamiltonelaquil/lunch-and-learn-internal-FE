@@ -51,6 +51,7 @@ export const StyledCard = styled.div`
   /* cursor: pointer; */
   .mainContent {
     margin: auto;
+    width: 80%;
   }
   h1 {
     font-size: var(--fs-xxl);
@@ -123,3 +124,25 @@ export const DarkBG = styled.div`
   right: 0;
   overflow: auto;
 `;
+
+export const AttachmentContainer = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin: -1px;
+  padding: 5px;
+  gap: 20px;
+  border-top: 1px;
+  border-bottom: 1px;
+  border-left: 0px;
+  border-right: 0px;
+  border-style: solid;
+  border-color: var(--colour-grey-dark);
+  p{
+    width: 50%;
+  }
+  `;
