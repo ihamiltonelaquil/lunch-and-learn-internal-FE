@@ -93,7 +93,7 @@ const ExpandedMeetingCard: React.FC<{
         <br></br>
         <p>{description}</p>
         <br></br>
-        <AttachmentsList />
+        <AttachmentsList meetingId={meetingID} />
       </div>
       <span className="buttons row justify-content-center">
         <StyledMeetingCardButton onClick={handleOnClick}>

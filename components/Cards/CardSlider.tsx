@@ -23,8 +23,6 @@ export default function CardSlider() {
     setExpandedCardData(cardData[currentIndex]);
   }, [cardData, currentIndex]);
 
-  console.log(expandedCardData)
-
   useComponentDidMount(() => {
     const slider = document.querySelector(".slick-slider");
     if(slider){
@@ -49,7 +47,7 @@ export default function CardSlider() {
     swipeToSlide: true,
     lazyLoad: "ondemand" as LazyLoadTypes,
     onLazyLoad: function () {
-      console.log("lazy load");
+      //for debug purposes
     },
     afterChange: (current: number) => {setCurrentIndex(current);},
   };
