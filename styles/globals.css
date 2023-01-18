@@ -163,10 +163,15 @@ a {
   list-style-type: none;
   margin-left: 20px;
   margin-top: 5px;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 2px solid black;
   border-radius: 25px;
   padding-left: 20px;
   padding-right: 20px;
-  max-height: 15vw;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-height: 25vh;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
