@@ -11,14 +11,12 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import {
-  StyledCard,
-  StyledMeetingCardButton,
-  DarkBG,
-} from "../styledComponents";
-import ExpandedMeetingCard from "./ExpandedMeetingCard";
+import { StyledCard, StyledMeetingCardButton } from "../styledComponents";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import UpdateMeeting from "../UpdateMeeting";
 
 interface MeetingData {
+  authID: string;
   meetingID: string;
   topic: string;
   meetingStart: string;
@@ -31,12 +29,15 @@ const MainCard: React.FC<{
   meetingData: MeetingData;
   toggleCard: Dispatch<SetStateAction<boolean>>;
 }> = ({ meetingData, toggleCard }) => {
-  const { meetingID, topic, meetingStart, meetingEnd, creatorName } =
+  const { authID, meetingID, topic, meetingStart, meetingEnd, creatorName } =
     meetingData;
 
+  const { user } = useUser();
+  const [authIDMatches, setAuthIdMatches] = useState(false);
   const start = convertToDate(meetingStart);
   const end = convertToDate(meetingEnd);
   var now = new Date();
+  const [editing, setEditing] = useState(false);
 
   const [meetingState, setMeetingState] = useState({
     meetingStatus: timeOffset(now, start, end).meetingStatus,
@@ -51,6 +52,12 @@ const MainCard: React.FC<{
   );
 
   useEffect(() => {
+    if (authID === user?.sub) {
+      setAuthIdMatches(true);
+    }
+  }, [authID, user?.sub, authIDMatches]);
+
+  useEffect(() => {
     setTimeout(() => {
       now = new Date();
       var updatedMeetingState = timeOffset(now, start, end);
@@ -59,41 +66,47 @@ const MainCard: React.FC<{
   }, [meetingState]);
 
   return (
-    <StyledCard
-      key={meetingID}
-      // className="deactivatedCardElement"
-    >
-      <div className="mainContent">
-        <h1>{topic}</h1>
-        <p>Presented by</p>
-        <h3>{creatorName}</h3>
-
-        <p>{meetingState.meetingStatus}</p>
-        <h3>{meetingState.meetingOffset}</h3>
-
-        <p>at</p>
-        <h3>
-          {timeFormatter.format(convertToDate(meetingStart)) +
-            "-" +
-            timeFormatter.format(convertToDate(meetingEnd)) +
-            " " +
-            dateFormatter.format(convertToDate(meetingStart))}
-        </h3>
-      </div>
-      <span className="buttons row justify-content-center">
-        <StyledMeetingCardButton
-        // className="deactivatedCardElement"
-        >
-          Leave a question for {creatorName.split(" ")[0]}
-        </StyledMeetingCardButton>
-        <StyledMeetingCardButton
-          // className="deactivatedCardElement"
-          onClick={handleOpenCard}
-        >
-          More Information
-        </StyledMeetingCardButton>
-      </span>
-    </StyledCard>
+    <>
+      {editing ? (
+        <UpdateMeeting
+          meetingID={meetingData.meetingID}
+          authID={meetingData.authID}
+          currentName={meetingData.creatorName}
+          currentDesc={meetingData.description}
+          currentTopic={meetingData.topic}
+        />
+      ) : (
+        <StyledCard>
+          <div className="mainContent">
+            <h1>{topic}</h1>
+            <p>Presented by</p>
+            <h3>{creatorName}</h3>
+            <p>{meetingState.meetingStatus}</p>
+            <h3>{meetingState.meetingOffset}</h3>
+            <p>at</p>
+            <h3>
+              {timeFormatter.format(convertToDate(meetingStart)) +
+                "-" +
+                timeFormatter.format(convertToDate(meetingEnd)) +
+                " " +
+                dateFormatter.format(convertToDate(meetingStart))}
+            </h3>
+          </div>
+          <span className="buttons row justify-content-center">
+            {authIDMatches ? (
+              <StyledMeetingCardButton onClick={() => setEditing(true)}>
+                Edit Card
+              </StyledMeetingCardButton>
+            ) : (
+              ""
+            )}
+            <StyledMeetingCardButton onClick={handleOpenCard}>
+              More Information
+            </StyledMeetingCardButton>
+          </span>
+        </StyledCard>
+      )}
+    </>
   );
 };
 
