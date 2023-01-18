@@ -44,7 +44,7 @@ const AttachmentsList: React.FC<{
                             <AttachmentContainer>
                                 <FontAwesomeIcon icon={iconLookup(attachment.fileType)} size="2x" /> 
                                 <p> {attachment.fileName}</p>
-                                <a href={attachment.publicURI}>Download</a>
+                                <a href={attachment.publicURI} target="_blank" rel="noreferrer">Download</a>
                             </AttachmentContainer>
                         </li>
                     ))}
