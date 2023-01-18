@@ -31,7 +31,25 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 		throw new Error("Meeting can not end before it starts!")
 	}
 	if (diffSecondsStart > 0) {
-		if (diffDaysStart > 1) {
+		if (diffDaysStart > 730) {
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/365) + " Years";
+		}
+		else if (diffDaysStart > 365) {
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/365) + " Year";
+		}
+		else if (diffDaysStart > 61){
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/30) + " Months";
+		}
+		else if (diffDaysStart > 30){
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/30) + " Month";
+		}
+		else if (diffDaysStart > 13) {
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/7) + " Weeks";
+		}
+		else if (diffDaysStart > 6) {
+			updatedMeetingState.meetingOffset = "Next Week";
+		}
+		else if (diffDaysStart > 1) {
 			updatedMeetingState.meetingOffset = diffDaysStart + " Days";
 		} else if (diffDaysStart === 1) {
 			updatedMeetingState.meetingOffset = diffDaysStart + " Day";
@@ -63,7 +81,21 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 		if (diffDaysStart == -2) {
 			updatedMeetingState.meetingOffset =
 				Math.abs(diffDaysStart + 1) + " Day Ago";
-		} else if (diffDaysStart < -2) {
+		}
+		else if (diffDaysStart < -730) {
+			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1)/365) + " Years Ago";
+		}
+		else if (diffDaysStart < -365) {
+			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1)/365) + " Year Ago";
+		}
+		else if (diffDaysStart < -14) {
+			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1)/7) + " Weeks Ago";
+		}
+		else if(diffDaysStart < -7){
+			updatedMeetingState.meetingOffset = "Last week";
+		} 
+		
+		else if (diffDaysStart < -2) {
 			updatedMeetingState.meetingOffset =
 				Math.abs(diffDaysStart + 1) + " Days Ago";
 		}
