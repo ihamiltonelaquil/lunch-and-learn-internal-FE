@@ -11,6 +11,7 @@ import {
   timeFormatter,
   timeOffset,
 } from "../../lib/dateHelper";
+import { useComponentDidMount, useComponentWillUnmount } from "../../lib/utils";
 import AttachmentsList from "../AttachmentsList";
 import {
   StyledExpandedMeetingCard,
@@ -18,7 +19,7 @@ import {
 } from "../styledComponents";
 
 interface MeetingData {
-  meetingID: number;
+  meetingID: string;
   topic: string;
   meetingStart: string;
   meetingEnd: string;
@@ -29,7 +30,7 @@ interface MeetingData {
 const ExpandedMeetingCard: React.FC<{
   meetingData: MeetingData;
   onClick: Dispatch<SetStateAction<boolean>>;
-}> = ({ meetingData, onClick }) => {
+  }> = ({ meetingData, onClick }) => {
   const {
     meetingID,
     topic,
@@ -45,6 +46,12 @@ const ExpandedMeetingCard: React.FC<{
     },
     [onClick]
   );
+
+  useComponentDidMount(() => {
+    const card = document.querySelector(".expanded-meeting-card");
+    if(card)
+      card.className += " expanded-card-init";
+  });
 
   const start = convertToDate(meetingStart);
   const end = convertToDate(meetingEnd);
@@ -64,7 +71,7 @@ const ExpandedMeetingCard: React.FC<{
   }, [meetingState]);
 
   return (
-    <StyledExpandedMeetingCard key={meetingID}>
+    <StyledExpandedMeetingCard className="expanded-meeting-card" key={meetingID}>
       <div className="mainContent">
         <h1>{topic}</h1>
         <p>Presented by</p>

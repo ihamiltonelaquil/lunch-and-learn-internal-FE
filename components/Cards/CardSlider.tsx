@@ -10,6 +10,9 @@ import { useComponentDidMount } from "../../lib/utils";
 
 export default function CardSlider() {
   const [cardData, setCardData] = useState<any[]>([]);
+  const [expandedCardIsVisible, setExpandedCardIsVisible] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [expandedCardData, setExpandedCardData] = useState(cardData[0]);
 
   useEffect(() => {
     fetch(`https://localhost:555/api/LunchAndLearn/`)
@@ -17,7 +20,10 @@ export default function CardSlider() {
       .then((data) => {
         setCardData(data);
       });
-  }, [cardData]);
+    setExpandedCardData(cardData[currentIndex]);
+  }, [cardData, currentIndex]);
+
+  console.log(expandedCardData)
 
   useComponentDidMount(() => {
     const slider = document.querySelector(".slick-slider");
@@ -25,14 +31,10 @@ export default function CardSlider() {
       setTimeout(() => {
         if(!slider.classList.contains("slider-init"))
           slider.className += " slider-init";
-      }, 400);
+      }, 100);
     }
   })
-
-  const [expandedCardIsVisible, setExpandedCardIsVisible] = useState(false);
-
-  const [expandedCardData, setExpandedCardData] = useState(cardData[0]);
-
+  
   var settings = {
     accessibility: true,
     arrows: false,
@@ -49,7 +51,7 @@ export default function CardSlider() {
     onLazyLoad: function () {
       console.log("lazy load");
     },
-    afterChange: (current: number) => setExpandedCardData(cardData[current]),
+    afterChange: (current: number) => {setCurrentIndex(current);},
   };
 
   function toggleExpandedCard() {
@@ -75,7 +77,6 @@ export default function CardSlider() {
       <Slider {...settings}>
         {cardData.map((data) => {
           {
-            console.log(data.meetingID);
             return (
               <MeetingCard key={data.meetingID} meetingData={data} toggleCard={toggleExpandedCard} />
             );
