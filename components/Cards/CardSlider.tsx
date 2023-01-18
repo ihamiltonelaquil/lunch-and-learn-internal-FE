@@ -25,14 +25,14 @@ export default function CardSlider() {
 
   useComponentDidMount(() => {
     const slider = document.querySelector(".slick-slider");
-    if(slider){
+    if (slider) {
       setTimeout(() => {
-        if(!slider.classList.contains("slider-init"))
+        if (!slider.classList.contains("slider-init"))
           slider.className += " slider-init";
       }, 100);
     }
-  })
-  
+  });
+
   var settings = {
     accessibility: true,
     arrows: false,
@@ -49,13 +49,14 @@ export default function CardSlider() {
     onLazyLoad: function () {
       //for debug purposes
     },
-    afterChange: (current: number) => {setCurrentIndex(current);},
+    afterChange: (current: number) => {
+      setCurrentIndex(current);
+    },
   };
 
   function toggleExpandedCard() {
     setExpandedCardIsVisible((v) => !v);
   }
-  
 
   return (
     <>
@@ -76,7 +77,13 @@ export default function CardSlider() {
         {cardData.map((data) => {
           {
             return (
-              <MeetingCard key={data.meetingID} meetingData={data} toggleCard={toggleExpandedCard} />
+              <>
+                <MeetingCard
+                  key={data.meetingID}
+                  meetingData={data}
+                  toggleCard={toggleExpandedCard}
+                />
+              </>
             );
           }
         })}

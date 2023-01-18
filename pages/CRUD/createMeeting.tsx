@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const createMeeting = () => {
   //used for POST
@@ -11,9 +12,11 @@ const createMeeting = () => {
   const [teamsLink, setTeamsLink] = useState("");
 
   const [status, setStatus] = useState<any>();
+  const { user } = useUser();
 
   function saveData() {
     let data = {
+      authID: user?.sub || "fail",
       creatorName,
       meetingTime,
       topic,
