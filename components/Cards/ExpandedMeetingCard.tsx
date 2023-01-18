@@ -49,8 +49,10 @@ const ExpandedMeetingCard: React.FC<{
 
   useComponentDidMount(() => {
     const card = document.querySelector(".expanded-meeting-card");
-    if(card)
-      card.className += " expanded-card-init";
+    if(card && !(card.className.includes("expanded-card-init")))
+      setTimeout(() => {
+        card.className += " expanded-card-init";
+      }, 100)
   });
 
   const start = convertToDate(meetingStart);

@@ -151,12 +151,10 @@ a {
 }
 
 .expanded-meeting-card{
-  transition: all 1s ease-in-out;
-  transform: translateY(-80px);
+  transition: all 0.1s ease-in-out;
   opacity: 0;
 }
 
 .expanded-card-init{
-  transform: translateY(0px);
   opacity: 1;
 }
