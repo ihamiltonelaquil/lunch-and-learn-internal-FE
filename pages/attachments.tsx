@@ -19,8 +19,6 @@ export default function Attachments() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsSubmitting(true);
-        console.log("upload");
-        console.log(responseData);
         const data = new FormData();
         const meetingId = "4a996676-19b6-4e87-3623-08daf1d1fcce";
         if (file) {
