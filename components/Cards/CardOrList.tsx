@@ -67,7 +67,7 @@ export default function CardOrList() {
   const width = isMobile ? 100 : 150;
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
+    fetch(`https://localhost:555/api/Meeting/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setTableData(data);
