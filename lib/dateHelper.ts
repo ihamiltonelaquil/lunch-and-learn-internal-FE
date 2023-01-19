@@ -27,24 +27,24 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 		meetingStatus: "Happening in",
 		meetingOffset: diffDaysStart + " Days",
 	};
-	if ((end.getTime()-start.getTime())<0){
+	if ((end.getTime() - start.getTime()) < 0) {
 		throw new Error("Meeting can not end before it starts!")
 	}
 	if (diffSecondsStart > 0) {
 		if (diffDaysStart > 730) {
-			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/365) + " Years";
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart / 365) + " Years";
 		}
 		else if (diffDaysStart > 365) {
-			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/365) + " Year";
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart / 365) + " Year";
 		}
-		else if (diffDaysStart > 61){
-			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/30) + " Months";
+		else if (diffDaysStart > 61) {
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart / 30) + " Months";
 		}
-		else if (diffDaysStart > 30){
-			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/30) + " Month";
+		else if (diffDaysStart > 30) {
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart / 30) + " Month";
 		}
 		else if (diffDaysStart > 13) {
-			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart/7) + " Weeks";
+			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart / 7) + " Weeks";
 		}
 		else if (diffDaysStart > 6) {
 			updatedMeetingState.meetingOffset = "Next Week";
@@ -83,28 +83,28 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 				Math.abs(diffDaysStart + 1) + " Day Ago";
 		}
 		else if (diffDaysStart < -730) {
-			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1)/365) + " Years Ago";
+			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1) / 365) + " Years Ago";
 		}
 		else if (diffDaysStart < -365) {
-			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1)/365) + " Year Ago";
+			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1) / 365) + " Year Ago";
 		}
 		else if (diffDaysStart < -14) {
-			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1)/7) + " Weeks Ago";
+			updatedMeetingState.meetingOffset = Math.floor(Math.abs(diffDaysStart + 1) / 7) + " Weeks Ago";
 		}
-		else if(diffDaysStart < -7){
+		else if (diffDaysStart < -7) {
 			updatedMeetingState.meetingOffset = "Last week";
-		} 
-		
+		}
+
 		else if (diffDaysStart < -2) {
 			updatedMeetingState.meetingOffset =
 				Math.abs(diffDaysStart + 1) + " Days Ago";
 		}
 	} else {
-		throw new Error("Error parsing date offset: \n"+
-						"Start time: " + start +"\n"+
-						"End time: " + end +"\n"+
-						"Current time: " + now +"\n"+
-						"Computed offsets (now-start, now-end)(seconds): " + diffSecondsStart + " " + diffSecondsEnd);
+		throw new Error("Error parsing date offset: \n" +
+			"Start time: " + start + "\n" +
+			"End time: " + end + "\n" +
+			"Current time: " + now + "\n" +
+			"Computed offsets (now-start, now-end)(seconds): " + diffSecondsStart + " " + diffSecondsEnd);
 	}
 	return updatedMeetingState;
 }

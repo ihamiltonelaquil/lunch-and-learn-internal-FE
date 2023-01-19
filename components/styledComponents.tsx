@@ -49,6 +49,11 @@ export const StyledCard = styled.div`
   font-size: var(--fs-base);
   font-family: var(--ff-primary);
   /* cursor: pointer; */
+  transition: box-shadow 0.2s ease-in-out;
+  box-shadow:1px 8px 8px 0px #00000025;
+  &:hover {
+    box-shadow:1px 8px 15px 3px #00000025;
+  }
   .mainContent {
     margin: auto;
     width: 80%;

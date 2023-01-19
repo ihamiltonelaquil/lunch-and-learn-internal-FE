@@ -117,6 +117,7 @@ a {
 .profileImage{
   height: 30px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 
@@ -148,6 +149,11 @@ a {
   transition: all 1s ease-in-out;
   transform: translateY(-80px);
   opacity: 0;
+}
+
+.slick-list.slick-list{
+  padding-top: 15px;
+  padding-bottom: 20px;
 }
 
 .expanded-meeting-card{
