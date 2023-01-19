@@ -145,7 +145,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
       description,
     };
     console.log(data);
-    fetch(`https://localhost:555/api/LunchAndLearn/${meetingID}`, {
+    fetch(`https://localhost:555/api/Meeting/${meetingID}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

@@ -24,7 +24,7 @@ const createMeeting = () => {
       linkToSlides,
       teamsLink,
     };
-    fetch("https://localhost:555/api/LunchAndLearn", {
+    fetch("https://localhost:555/api/Meeting", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -20,7 +20,7 @@ const deleteMeeting = () => {
     event.preventDefault();
     const meetingID = event.currentTarget.getAttribute("data-meetingid");
     if (meetingID != null) {
-      fetch(`https://localhost:555/api/LunchAndLearn/${meetingID}`, {
+      fetch(`https://localhost:555/api/Meeting/${meetingID}`, {
         method: "DELETE",
         mode: "cors",
       });
@@ -28,7 +28,7 @@ const deleteMeeting = () => {
   };
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/LunchAndLearn/${searchText}`)
+    fetch(`https://localhost:555/api/Meeting/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setResultData(data);
