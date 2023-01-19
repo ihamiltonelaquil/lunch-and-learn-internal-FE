@@ -151,3 +151,28 @@ export const AttachmentContainer = styled.span`
     width: 50%;
   }
   `;
+
+interface RoundedButtonProps {
+  width: number;
+}
+
+export const CenteredDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+`;
+
+export const RoundedButton = styled.button<RoundedButtonProps>`
+  width: ${(props) => props.width}px;
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid lightgray;
+  height: 35px;
+  margin-right: 10px;
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+`;

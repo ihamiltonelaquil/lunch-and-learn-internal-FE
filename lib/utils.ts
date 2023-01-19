@@ -102,6 +102,7 @@ export function iconLookup(fileType: string) {
         case "sh":
         case "hpp":
         case "h":
+        case "asm":
             return faFileCode;
         default:
             return faFile;
