@@ -40,25 +40,28 @@ const InitLoginPage = () => {
   return (
     <>
       <div className="container w-50">
-        <div className="container w-50 float-start">
-          <div className="form-group">
-            <input
-              placeholder="First Name"
-              className="form-control mb-2"
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              placeholder="Last Name"
-              className="form-control mb-2"
-              onChange={(e) => setLastName(e.target.value)}
-            />
+        <form>
+          <div className="container w-50 float-start">
+            <div className="form-group">
+              <input
+                placeholder="First Name"
+                className="form-control mb-2"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                placeholder="Last Name"
+                className="form-control mb-2"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="input-group-append">
-          <button className="btn btn-dark btn-sm" onClick={saveData}>
-            Save Details
-          </button>
-        </div>
+
+          <div className="input-group-append">
+            <button className="btn btn-dark btn-sm" onClick={saveData}>
+              Save Details
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );
