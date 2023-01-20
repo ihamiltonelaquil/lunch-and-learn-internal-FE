@@ -167,7 +167,6 @@ a {
 
 .listStyle1{
   list-style-type: none;
-  margin-left: 20px;
   margin-top: 5px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -180,6 +179,7 @@ a {
   max-height: 25vh;
   scroll-behavior: smooth;
   scrollbar-width: none;
+  width: 100%;
 }
 
 .upload-success.upload-success{

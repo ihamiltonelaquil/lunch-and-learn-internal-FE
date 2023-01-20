@@ -39,8 +39,6 @@ export default function Navbar() {
 
         <Link href="/CRUD/createMeeting">Create</Link>
 
-        <Link href="/CRUD/updateMeeting">Update</Link>
-
         <DropDownNav />
       </NavContainer>
     </>

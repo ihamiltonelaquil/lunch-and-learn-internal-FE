@@ -1,11 +1,12 @@
-import { useState, useEffect, ChangeEvent, FormEvent, Dispatch, SetStateAction, useCallback } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent, Dispatch, SetStateAction, useCallback, useRef } from "react";
 import Link from "next/link";
-import { CenteredDiv, RoundedButton, StyledCard, StyledMeetingCardButton } from "./styledComponents";
+import { CenteredDiv, DarkBG, RoundedButton, StyledCard, StyledExpandedMeetingCard, StyledMeetingCardButton } from "./styledComponents";
 
 import styled from "styled-components";
 import ReactLoading from "react-loading";
 import { NodeNextRequest } from "next/dist/server/base-http/node";
 import React from "react";
+import AttachmentsList from "./AttachmentsList";
 
 const InputHeader = styled.p`
   text-align: left;
@@ -86,12 +87,12 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   toggleOpen
 }) => {
 
-    const handleToggleOpen = useCallback(
-      (event: any) => {
-        toggleOpen(event.target.value);
-      },
-      [toggleOpen]
-    );
+  const handleToggleOpen = useCallback(
+    (event: any) => {
+      toggleOpen(event.target.value);
+    },
+    [toggleOpen]
+  );
 
   const [topic, setTopic] = useState<string>(currentTopic);
   const [description, setDescription] = useState<string>(currentDesc);
@@ -107,42 +108,65 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   const [linkAddress, setLinkAddress] = useState<string>();
   const [linkName, setLinkName] = useState<string>();
 
+  const [managingAttachments, setManagingAttachments] = useState<boolean>(false);
+  const [managingLinks, setManagingLinks] = useState<boolean>(false);
+
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-      const fileList = event.target.files;
-      if (fileList) {
-          setFile(fileList[0]);
-      }
+    const fileList = event.target.files;
+    if (fileList) {
+      setFile(fileList[0]);
+    }
   }
 
   async function handleAttachmentUpload(event: React.FormEvent<HTMLFormElement>) {
-      event.preventDefault();
-      setIsSubmittingAttachment(true);
-      const data = new FormData();
-      if (file) {
-          data.append("file", file);
-          const res = await fetch(`https://localhost:555/api/LunchAndLearn/upload?meetingId=${meetingID}`, {
-              method: "POST",
-              body: data,
-          });
-          setUploadResponseData(res);
-          setFile(null);
-      }
-      setIsSubmittingAttachment(false);
-      let cssClass = "";
+    event.preventDefault();
+    console.log("uploading file");
+    setIsSubmittingAttachment(true);
+    const data = new FormData();
+    if (file) {
+      data.append("file", file);
+      const res = await fetch(`https://localhost:555/api/Attachment/upload?meetingId=${meetingID}`, {
+        method: "POST",
+        body: data,
+      });
+      setUploadResponseData(res);
+      setFile(null);
+    }
+    setIsSubmittingAttachment(false);
+    let cssClass = "";
+    setTimeout(() => {
+      const fileSelector = document.getElementById("fileSelector");
+      const fileSubmit = document.getElementById("fileSubmit");
+      if (uploadResponseData?.status === 200)
+        cssClass = "upload-success";
+      else
+        cssClass = "upload-failure";
+      fileSelector?.classList.add(cssClass);
+      fileSubmit?.classList.add(cssClass);
       setTimeout(() => {
-        const fileSelector = document.getElementById("fileSelector");
-        const fileSubmit = document.getElementById("fileSubmit");
-        if(uploadResponseData?.status === 200)
-          cssClass = "upload-success";
-        else
-          cssClass = "upload-failure";
-        fileSelector?.classList.add(cssClass);
-        fileSubmit?.classList.add(cssClass);
-        setTimeout(() => {
-          fileSelector?.classList.remove(cssClass);
-          fileSubmit?.classList.remove(cssClass);
-        }, 5000);
-      }, 100);
+        fileSelector?.classList.remove(cssClass);
+        fileSubmit?.classList.remove(cssClass);
+      }, 5000);
+    }, 100);
+  }
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function handleAddLink(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    fetch(`https://localhost:555/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: '',
+    }).then((response) => setResponse(response));
+    setLinkAddress("");
+    setLinkName("");
+    if (formRef.current) {
+      formRef.current.reset();
+    }
   }
 
   function saveData() {
@@ -172,9 +196,20 @@ const UpdateMeeting: React.FC<MeetingData> = ({
 
   return (
     <>
-      <StyledCard>
-        <div className="mainContent">
-          <h1>Update Meeting</h1>
+      {managingAttachments ?
+        <StyledCard>
+          <h1>Manage Attachments</h1>
+          <AttachmentsList meetingId={meetingID} editing={true} />
+          <StyledMeetingCardButton onClick={() => {
+            setManagingAttachments(false);
+          }}>
+            Close
+          </StyledMeetingCardButton>
+        </StyledCard>
+        :
+        <StyledCard>
+          <div className="mainContent">
+            <h1>Update Meeting</h1>
             <GridWrapper>
               <InputWrapper>
                 <InputHeader>Topic Name</InputHeader>
@@ -198,74 +233,85 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                       setDescription(e.target.value);
                     }
                   }}
-                  />
-                  <InputHeader>Date and Time</InputHeader>
-                  <input type="datetime-local" id="meeting-time" name="meeting-time" min="1970-01-01T00:00" max="2100-12-31T00:00"
+                />
+                <InputHeader>Date and Time</InputHeader>
+                <input type="datetime-local" id="meeting-time" name="meeting-time" min="1970-01-01T00:00" max="2100-12-31T00:00"
                   onChange={(e) => {
-                    const newMeetingEnd = (e.target.value).slice(0, 11) + (Number((e.target.value).slice(11, 13))+1) + (e.target.value).slice(13, 16);
+                    const newMeetingEnd = (e.target.value).slice(0, 11) + (Number((e.target.value).slice(11, 13)) + 1) + (e.target.value).slice(13, 16);
                     if (e.target.value) {
                       setMeetingStart(e.target.value);
                       setMeetingEnd(newMeetingEnd);
                     }
                   }}
-                  />
-                </InputWrapper>
-                <InputWrapper>
-                  <InputHeader>Add Attachments</InputHeader>
-                  <AttachmentContainer>
-                    {!isSubmittingAttachment ?
-                        <form onSubmit={handleAttachmentUpload}>
-                            <input type="file" onChange={handleFileChange} ref={fileInput} style={{display:'none'}}/>
-                            <RoundedButton id="fileSelector" width={170} onClick={redirectClick}>{file == null ? 'Select a File' : file.name}</RoundedButton>
-                            <RoundedButton id="fileSubmit" width={110} type="submit">Upload</RoundedButton>
-                        </form>
-                        :
-                        <CenteredDiv>
-                          <ReactLoading type="cylon" color={getComputedStyle(document.body).getPropertyValue('--colour-accent')} height={35} width={35}/>
-                        </CenteredDiv>
-                      }
-                  <RoundedButton width={290} onClick={() => {}}>Manage Attachments</RoundedButton>
-                  </AttachmentContainer>
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <InputHeader>Add Attachments</InputHeader>
+                <AttachmentContainer>
+                  {!isSubmittingAttachment ?
+                    <form onSubmit={handleAttachmentUpload}>
+                      <input type="file" onChange={handleFileChange} ref={fileInput} style={{ display: 'none' }} />
+                      <RoundedButton id="fileSelector" width={170} onClick={redirectClick}>{file == null ? 'Select a File' : file.name}</RoundedButton>
+                      <RoundedButton id="fileSubmit" width={110} type="submit">Upload</RoundedButton>
+                    </form>
+                    :
+                    <CenteredDiv>
+                      <ReactLoading type="cylon" color={getComputedStyle(document.body).getPropertyValue('--colour-accent')} height={35} width={35} />
+                    </CenteredDiv>
+                  }
+                </AttachmentContainer>
 
-                  <InputHeader>Add Links</InputHeader>
-                  <form>
-                    <StyledInput
+                <InputHeader>Add Links</InputHeader>
+                <form onSubmit={handleAddLink} ref={formRef}>
+                  <StyledInput
                     placeholder="Website Address"
                     // value={topic}
                     pattern="^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
+                    onInvalid={(event: React.FormEvent<HTMLInputElement>) => {
+                      const input = event.currentTarget;
+                      if (!input.validity.valid) {
+                        input.setCustomValidity("Please enter a valid URL, including http(s)://");
+                      } else {
+                        input.setCustomValidity("");
+                      }
+                    }}
                     onChange={(e) => {
+                      e.currentTarget.setCustomValidity("");
                       if (e.target.value) {
                         setLinkAddress(e.target.value);
                       }
                     }}
-                    />
-                    <span>
-                      <StyledInput
-                      style={{width: '70%', marginRight: '10px'}}
+                  />
+                  <span>
+                    <StyledInput
+                      style={{ width: '70%', marginRight: '10px' }}
                       placeholder="Link Name"
                       // value={topic}
+                      required
                       onChange={(e) => {
                         if (e.target.value) {
                           setLinkName(e.target.value);
                         }
                       }}
-                      />
-                      <RoundedButton width={70} type='submit'>Add</RoundedButton>
-                    </span>
-                    <RoundedButton width={290} onClick={() => {}}>Manage Links</RoundedButton>
-                  </form>
-                </InputWrapper>
+                    />
+                    <RoundedButton width={70} type="submit">Add</RoundedButton>
+                  </span>
+                </form>
+                <InputHeader>Manage Attachments/Links</InputHeader>
+                <RoundedButton width={290} onClick={() => { setManagingAttachments(true) }}>Manage Attachments/Links</RoundedButton>
+              </InputWrapper>
             </GridWrapper>
           </div>
-        <span>
-          <StyledMeetingCardButton onClick={handleToggleOpen}>
-            Close
-          </StyledMeetingCardButton>
-          <StyledMeetingCardButton onClick={saveData}>
-            Save
-          </StyledMeetingCardButton>
-        </span>
-      </StyledCard>
+          <span>
+            <StyledMeetingCardButton onClick={handleToggleOpen}>
+              Close
+            </StyledMeetingCardButton>
+            <StyledMeetingCardButton onClick={saveData}>
+              Save
+            </StyledMeetingCardButton>
+          </span>
+        </StyledCard>
+      }
     </>
   );
 };

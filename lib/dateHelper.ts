@@ -47,7 +47,7 @@ export function timeOffset(now: Date, start: Date, end: Date) {
 			updatedMeetingState.meetingOffset = Math.floor(diffDaysStart / 7) + " Weeks";
 		}
 		else if (diffDaysStart > 6) {
-			updatedMeetingState.meetingOffset = "Next Week";
+			updatedMeetingState.meetingOffset = "1 Week";
 		}
 		else if (diffDaysStart > 1) {
 			updatedMeetingState.meetingOffset = diffDaysStart + " Days";

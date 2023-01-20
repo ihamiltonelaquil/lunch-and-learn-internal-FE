@@ -102,7 +102,7 @@ const MainCard: React.FC<{
           <span className="buttons row justify-content-center">
             {authIDMatches ? (
               <StyledMeetingCardButton onClick={() => setEditing(true)}>
-                Edit Card
+                Edit Details
               </StyledMeetingCardButton>
             ) : (
               ""
