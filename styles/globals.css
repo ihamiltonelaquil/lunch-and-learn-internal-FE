@@ -181,3 +181,19 @@ a {
   scroll-behavior: smooth;
   scrollbar-width: none;
 }
+
+.upload-success.upload-success{
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transition: all 1s ease-out;
+}
+
+.upload-success.upload-success{
+  border-color: rgb(172, 31, 31);
+  color: rgb(172, 31, 31);
+  transition: all 1s ease-out;
+}
+
+textarea{
+  resize: none;
+}

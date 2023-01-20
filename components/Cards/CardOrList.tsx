@@ -4,30 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Table from "../Table";
 import CardSlider from "./CardSlider";
-
-interface RoundedButtonProps {
-  width: number;
-}
-
-const CenteredDiv = styled.div`
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`;
-
-const RoundedButton = styled.button<RoundedButtonProps>`
-  width: ${(props) => props.width}px;
-  border-radius: 50px;
-  background-color: white;
-  border: 2px solid lightgray;
-  height: 35px;
-  margin-right: 10px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-`;
+import { CenteredDiv, RoundedButton } from "../styledComponents";
 
 const SearchWrapper = styled.div`
   position: relative;

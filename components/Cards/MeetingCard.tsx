@@ -44,6 +44,10 @@ const MainCard: React.FC<{
     meetingOffset: timeOffset(now, start, end).meetingOffset,
   });
 
+  function toggleEditing() {
+    setEditing((v) => !v);
+  }
+
   const handleOpenCard = useCallback(
     (event: any) => {
       toggleCard(event.target.value);
@@ -69,11 +73,12 @@ const MainCard: React.FC<{
     <>
       {editing ? (
         <UpdateMeeting
-          meetingID={meetingData.meetingID}
-          authID={meetingData.authID}
-          currentName={meetingData.creatorName}
-          currentDesc={meetingData.description}
-          currentTopic={meetingData.topic}
+        meetingID={meetingData.meetingID}
+        authID={meetingData.authID}
+        currentName={meetingData.creatorName}
+        currentDesc={meetingData.description}
+        currentTopic={meetingData.topic}
+          toggleOpen={toggleEditing}
         />
       ) : (
         <StyledCard>
