@@ -6,36 +6,44 @@ import MainPage from "../components/MainPage";
 
 const Index = () => {
   const { user, isLoading } = useUser();
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({ status: null });
+  const [isBusy, setBusy] = useState(true);
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/user/${user?.sub}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUserData(data);
-      });
-  }, [userData]);
+    if (user?.sub != undefined || null) {
+      setBusy(true);
+      fetch(`https://localhost:555/api/user/${user?.sub}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUserData(data);
+          setBusy(false);
+        });
+    }
+  }, [user]);
 
-  if (Object.keys(userData).length != 1) {
-    return <InitLoginPage />;
+  if (isLoading || isBusy) {
+    return "loading";
   }
 
-  return (
-    <>
-      {isLoading && <>Loading login info...</>}
-
-      {!isLoading && !user && (
-        <div>
-          <LandingPage />
-        </div>
-      )}
-      {user && (
-        <div>
-          <MainPage />
-        </div>
-      )}
-    </>
-  );
+  if (!isLoading || !isBusy) {
+    if (userData.status === 404) {
+      return <InitLoginPage />;
+    }
+    return (
+      <>
+        {!user && (
+          <div>
+            <LandingPage />
+          </div>
+        )}
+        {user && (
+          <div>
+            <MainPage />
+          </div>
+        )}
+      </>
+    );
+  }
 };
 
 export default Index;

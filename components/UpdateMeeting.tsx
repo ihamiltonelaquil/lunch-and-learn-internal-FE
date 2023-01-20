@@ -12,7 +12,7 @@ const InputHeader = styled.p`
   text-align: left;
   font-weight: 600;
   margin: 5px 0px 0px 10px !important;
-`
+`;
 
 const InputWrapper = styled.div`
   display: flex;
@@ -53,7 +53,8 @@ const StyledTextArea = styled.textarea`
   resize: none;
   &:focus {
     border: 2px solid var(--color-accent-dark);
-  }`;
+  }
+`;
 
 const GridWrapper = styled.div`
   display: grid;
@@ -61,7 +62,7 @@ const GridWrapper = styled.div`
   grid-gap: 10px;
   justify-content: center;
   align-items: center;
-`
+`;
 const AttachmentContainer = styled.div`
   margin-top: 5px;
 `;
@@ -84,7 +85,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   currentDesc,
   currentStart,
   currentEnd,
-  toggleOpen
+  toggleOpen,
 }) => {
 
   const handleToggleOpen = useCallback(
@@ -192,7 +193,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   const redirectClick = (event: any) => {
     event.preventDefault();
     fileInput.current?.click();
-  }
+  };
 
   return (
     <>
@@ -278,7 +279,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                     onChange={(e) => {
                       e.currentTarget.setCustomValidity("");
                       if (e.target.value) {
-                        setLinkAddress(e.target.value);
+                        setLinkName(e.target.value);
                       }
                     }}
                   />
