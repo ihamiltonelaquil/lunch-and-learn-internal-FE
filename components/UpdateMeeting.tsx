@@ -58,6 +58,8 @@ const GridWrapper = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
 `
 const AttachmentContainer = styled.div`
   margin-top: 5px;
@@ -68,6 +70,8 @@ interface MeetingData {
   currentName: string;
   currentTopic: string;
   currentDesc: string;
+  currentStart: string;
+  currentEnd: string;
   toggleOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -76,7 +80,9 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   authID,
   currentName,
   currentTopic,
-  currentDesc, 
+  currentDesc,
+  currentStart,
+  currentEnd,
   toggleOpen
 }) => {
 
@@ -87,9 +93,10 @@ const UpdateMeeting: React.FC<MeetingData> = ({
       [toggleOpen]
     );
 
-  const [creatorName, setCreatorName] = useState<string>(currentName);
   const [topic, setTopic] = useState<string>(currentTopic);
   const [description, setDescription] = useState<string>(currentDesc);
+  const [meetingStart, setMeetingStart] = useState<string>(currentStart);
+  const [meetingEnd, setMeetingEnd] = useState<string>(currentEnd);
 
   const [response, setResponse] = useState<Response>();
 
@@ -140,11 +147,11 @@ const UpdateMeeting: React.FC<MeetingData> = ({
 
   function saveData() {
     let data = {
-      creatorName,
       topic,
       description,
+      meetingStart,
+      meetingEnd,
     };
-    console.log(data);
     fetch(`https://localhost:555/api/Meeting/${meetingID}`, {
       method: "PUT",
       headers: {
@@ -192,6 +199,16 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                     }
                   }}
                   />
+                  <InputHeader>Date and Time</InputHeader>
+                  <input type="datetime-local" id="meeting-time" name="meeting-time" min="1970-01-01T00:00" max="2100-12-31T00:00"
+                  onChange={(e) => {
+                    const newMeetingEnd = (e.target.value).slice(0, 11) + (Number((e.target.value).slice(11, 13))+1) + (e.target.value).slice(13, 16);
+                    if (e.target.value) {
+                      setMeetingStart(e.target.value);
+                      setMeetingEnd(newMeetingEnd);
+                    }
+                  }}
+                  />
                 </InputWrapper>
                 <InputWrapper>
                   <InputHeader>Add Attachments</InputHeader>
@@ -207,13 +224,15 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                           <ReactLoading type="cylon" color={getComputedStyle(document.body).getPropertyValue('--colour-accent')} height={35} width={35}/>
                         </CenteredDiv>
                       }
+                  <RoundedButton width={290} onClick={() => {}}>Manage Attachments</RoundedButton>
                   </AttachmentContainer>
 
                   <InputHeader>Add Links</InputHeader>
                   <form>
                     <StyledInput
-                    placeholder="Link Address"
+                    placeholder="Website Address"
                     // value={topic}
+                    pattern="^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
                     onChange={(e) => {
                       if (e.target.value) {
                         setLinkAddress(e.target.value);
@@ -233,6 +252,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                       />
                       <RoundedButton width={70} type='submit'>Add</RoundedButton>
                     </span>
+                    <RoundedButton width={290} onClick={() => {}}>Manage Links</RoundedButton>
                   </form>
                 </InputWrapper>
             </GridWrapper>

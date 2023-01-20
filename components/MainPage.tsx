@@ -14,7 +14,6 @@ const MainPage = () => {
     }, 1);
   }, []);
   
-  console.log(user);
 
   return (
     <>

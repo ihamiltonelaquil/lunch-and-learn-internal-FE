@@ -197,3 +197,9 @@ a {
 textarea{
   resize: none;
 }
+
+input[type="datetime-local"]{
+  border: none;
+  border-radius: 34px;
+  padding: 5px 10px;
+}

@@ -78,7 +78,9 @@ const MainCard: React.FC<{
         currentName={meetingData.creatorName}
         currentDesc={meetingData.description}
         currentTopic={meetingData.topic}
-          toggleOpen={toggleEditing}
+        currentStart={meetingData.meetingStart}
+        currentEnd={meetingData.meetingEnd}
+        toggleOpen={toggleEditing}
         />
       ) : (
         <StyledCard>
