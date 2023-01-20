@@ -13,8 +13,6 @@ const MainPage = () => {
       setIsTrue(false);
     }, 1);
   }, []);
-  
-  console.log(user);
 
   return (
     <>

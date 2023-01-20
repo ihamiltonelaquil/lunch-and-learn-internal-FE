@@ -49,7 +49,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
       topic,
       description,
     };
-    console.log(data);
+
     fetch(`https://localhost:555/api/Meeting/${meetingID}`, {
       method: "PUT",
       headers: {

@@ -26,7 +26,7 @@ const AttachmentsList: React.FC<{
       });
   }, [attachmentData, meetingId]);
 
-  console.log(attachmentData);
+
 
   if (!attachmentData.keys) {
     return (
