@@ -1,6 +1,22 @@
-import { useState, useEffect, ChangeEvent, FormEvent, Dispatch, SetStateAction, useCallback, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  ChangeEvent,
+  FormEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useRef,
+} from "react";
 import Link from "next/link";
-import { CenteredDiv, DarkBG, RoundedButton, StyledCard, StyledExpandedMeetingCard, StyledMeetingCardButton } from "./styledComponents";
+import {
+  CenteredDiv,
+  DarkBG,
+  RoundedButton,
+  StyledCard,
+  StyledExpandedMeetingCard,
+  StyledMeetingCardButton,
+} from "./styledComponents";
 
 import styled from "styled-components";
 import ReactLoading from "react-loading";
@@ -87,7 +103,6 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   currentEnd,
   toggleOpen,
 }) => {
-
   const handleToggleOpen = useCallback(
     (event: any) => {
       toggleOpen(event.target.value);
@@ -109,7 +124,8 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   const [linkAddress, setLinkAddress] = useState<string>();
   const [linkName, setLinkName] = useState<string>();
 
-  const [managingAttachments, setManagingAttachments] = useState<boolean>(false);
+  const [managingAttachments, setManagingAttachments] =
+    useState<boolean>(false);
   const [managingLinks, setManagingLinks] = useState<boolean>(false);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -119,17 +135,22 @@ const UpdateMeeting: React.FC<MeetingData> = ({
     }
   }
 
-  async function handleAttachmentUpload(event: React.FormEvent<HTMLFormElement>) {
+  async function handleAttachmentUpload(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
     console.log("uploading file");
     setIsSubmittingAttachment(true);
     const data = new FormData();
     if (file) {
       data.append("file", file);
-      const res = await fetch(`https://localhost:555/api/Attachment/upload?meetingId=${meetingID}`, {
-        method: "POST",
-        body: data,
-      });
+      const res = await fetch(
+        `https://localhost:555/api/Attachment/upload?meetingId=${meetingID}`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
       setUploadResponseData(res);
       setFile(null);
     }
@@ -138,10 +159,8 @@ const UpdateMeeting: React.FC<MeetingData> = ({
     setTimeout(() => {
       const fileSelector = document.getElementById("fileSelector");
       const fileSubmit = document.getElementById("fileSubmit");
-      if (uploadResponseData?.status === 200)
-        cssClass = "upload-success";
-      else
-        cssClass = "upload-failure";
+      if (uploadResponseData?.status === 200) cssClass = "upload-success";
+      else cssClass = "upload-failure";
       fileSelector?.classList.add(cssClass);
       fileSubmit?.classList.add(cssClass);
       setTimeout(() => {
@@ -155,14 +174,17 @@ const UpdateMeeting: React.FC<MeetingData> = ({
 
   async function handleAddLink(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    fetch(`https://localhost:555/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: '',
-    }).then((response) => setResponse(response));
+    fetch(
+      `https://localhost:555/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: "",
+      }
+    ).then((response) => setResponse(response));
     setLinkAddress("");
     setLinkName("");
     if (formRef.current) {
@@ -197,17 +219,19 @@ const UpdateMeeting: React.FC<MeetingData> = ({
 
   return (
     <>
-      {managingAttachments ?
+      {managingAttachments ? (
         <StyledCard>
           <h1>Manage Attachments</h1>
           <AttachmentsList meetingId={meetingID} editing={true} />
-          <StyledMeetingCardButton onClick={() => {
-            setManagingAttachments(false);
-          }}>
+          <StyledMeetingCardButton
+            onClick={() => {
+              setManagingAttachments(false);
+            }}
+          >
             Close
           </StyledMeetingCardButton>
         </StyledCard>
-        :
+      ) : (
         <StyledCard>
           <div className="mainContent">
             <h1>Update Meeting</h1>
@@ -236,9 +260,17 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                   }}
                 />
                 <InputHeader>Date and Time</InputHeader>
-                <input type="datetime-local" id="meeting-time" name="meeting-time" min="1970-01-01T00:00" max="2100-12-31T00:00"
+                <input
+                  type="datetime-local"
+                  id="meeting-time"
+                  name="meeting-time"
+                  min="1970-01-01T00:00"
+                  max="2100-12-31T00:00"
                   onChange={(e) => {
-                    const newMeetingEnd = (e.target.value).slice(0, 11) + (Number((e.target.value).slice(11, 13)) + 1) + (e.target.value).slice(13, 16);
+                    const newMeetingEnd =
+                      e.target.value.slice(0, 11) +
+                      (Number(e.target.value.slice(11, 13)) + 1) +
+                      e.target.value.slice(13, 16);
                     if (e.target.value) {
                       setMeetingStart(e.target.value);
                       setMeetingEnd(newMeetingEnd);
@@ -249,17 +281,37 @@ const UpdateMeeting: React.FC<MeetingData> = ({
               <InputWrapper>
                 <InputHeader>Add Attachments</InputHeader>
                 <AttachmentContainer>
-                  {!isSubmittingAttachment ?
+                  {!isSubmittingAttachment ? (
                     <form onSubmit={handleAttachmentUpload}>
-                      <input type="file" onChange={handleFileChange} ref={fileInput} style={{ display: 'none' }} />
-                      <RoundedButton id="fileSelector" width={170} onClick={redirectClick}>{file == null ? 'Select a File' : file.name}</RoundedButton>
-                      <RoundedButton id="fileSubmit" width={110} type="submit">Upload</RoundedButton>
+                      <input
+                        type="file"
+                        onChange={handleFileChange}
+                        ref={fileInput}
+                        style={{ display: "none" }}
+                      />
+                      <RoundedButton
+                        id="fileSelector"
+                        width={170}
+                        onClick={redirectClick}
+                      >
+                        {file == null ? "Select a File" : file.name}
+                      </RoundedButton>
+                      <RoundedButton id="fileSubmit" width={110} type="submit">
+                        Upload
+                      </RoundedButton>
                     </form>
-                    :
+                  ) : (
                     <CenteredDiv>
-                      <ReactLoading type="cylon" color={getComputedStyle(document.body).getPropertyValue('--colour-accent')} height={35} width={35} />
+                      <ReactLoading
+                        type="cylon"
+                        color={getComputedStyle(document.body).getPropertyValue(
+                          "--colour-accent"
+                        )}
+                        height={35}
+                        width={35}
+                      />
                     </CenteredDiv>
-                  }
+                  )}
                 </AttachmentContainer>
 
                 <InputHeader>Add Links</InputHeader>
@@ -271,7 +323,9 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                     onInvalid={(event: React.FormEvent<HTMLInputElement>) => {
                       const input = event.currentTarget;
                       if (!input.validity.valid) {
-                        input.setCustomValidity("Please enter a valid URL, including http(s)://");
+                        input.setCustomValidity(
+                          "Please enter a valid URL, including http(s)://"
+                        );
                       } else {
                         input.setCustomValidity("");
                       }
@@ -285,7 +339,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                   />
                   <span>
                     <StyledInput
-                      style={{ width: '70%', marginRight: '10px' }}
+                      style={{ width: "70%", marginRight: "10px" }}
                       placeholder="Link Name"
                       // value={topic}
                       required
@@ -295,11 +349,20 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                         }
                       }}
                     />
-                    <RoundedButton width={70} type="submit">Add</RoundedButton>
+                    <RoundedButton width={70} type="submit">
+                      Add
+                    </RoundedButton>
                   </span>
                 </form>
                 <InputHeader>Manage Attachments/Links</InputHeader>
-                <RoundedButton width={290} onClick={() => { setManagingAttachments(true) }}>Manage Attachments/Links</RoundedButton>
+                <RoundedButton
+                  width={290}
+                  onClick={() => {
+                    setManagingAttachments(true);
+                  }}
+                >
+                  Manage Attachments/Links
+                </RoundedButton>
               </InputWrapper>
             </GridWrapper>
           </div>
@@ -312,7 +375,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
             </StyledMeetingCardButton>
           </span>
         </StyledCard>
-      }
+      )}
     </>
   );
 };

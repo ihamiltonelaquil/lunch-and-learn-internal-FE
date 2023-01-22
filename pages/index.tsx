@@ -2,6 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import InitLoginPage from "../components/InitLoginPage";
 import LandingPage from "../components/LandingPage";
+import LoginScreen from "../components/LoginScreen";
 import MainPage from "../components/MainPage";
 
 const Index = () => {
@@ -21,28 +22,18 @@ const Index = () => {
     }
   }, [user]);
 
-  if (isLoading || isBusy) {
+  if (isLoading) {
     return "loading";
   }
 
   if (!isLoading || !isBusy) {
-    if (userData.status === 404) {
-      return <InitLoginPage />;
+    if (!user) {
+      return <LandingPage />;
+    } else if (user && userData.status === 404) {
+      return <LoginScreen />;
+    } else {
+      return <MainPage />;
     }
-    return (
-      <>
-        {!user && (
-          <div>
-            <LandingPage />
-          </div>
-        )}
-        {user && (
-          <div>
-            <MainPage />
-          </div>
-        )}
-      </>
-    );
   }
 };
 

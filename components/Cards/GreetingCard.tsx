@@ -1,8 +1,16 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useViewportWidth } from "../Utils/useViewportWidth";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 interface CenteredDivProps {
   marginTop: number;
+}
+
+interface UserData {
+  authID: string;
+  firstName: string;
+  lastName: string;
 }
 
 const StyledParagraph = styled.p`
@@ -25,15 +33,39 @@ const CenteredDiv = styled.div<CenteredDivProps>`
 `;
 
 const GreetingCard = (props: { name: string }): JSX.Element => {
+  const { user } = useUser();
+  const [userData, setUserData] = useState<UserData[]>([]);
+  const [isBusy, setBusy] = useState(true);
   const [, isMobile] = useViewportWidth();
   const marginTop = isMobile ? 15 : 25;
+
+  useEffect(() => {
+    if (user?.sub != undefined || null) {
+      setBusy(true);
+      fetch(`https://localhost:555/api/user/${user?.sub}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUserData(data);
+          setBusy(false);
+        });
+    }
+  }, [user]);
+
   return (
-    <CenteredDiv marginTop={marginTop}>
-      <StyledH5>Hi {props.name}!</StyledH5>
-      <StyledParagraph>
-        The next Digital Services Lunch & Learn will be:
-      </StyledParagraph>
-    </CenteredDiv>
+    <>
+      <CenteredDiv marginTop={marginTop}>
+        <StyledH5>
+          {userData.map((data) => (
+            <>
+              Hi {data.firstName} {data.lastName}!
+            </>
+          ))}
+        </StyledH5>
+        <StyledParagraph>
+          The next Digital Services Lunch & Learn will be:
+        </StyledParagraph>
+      </CenteredDiv>
+    </>
   );
 };
 
