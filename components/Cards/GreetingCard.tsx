@@ -55,11 +55,11 @@ const GreetingCard = (props: { name: string }): JSX.Element => {
     <>
       <CenteredDiv marginTop={marginTop}>
         <StyledH5>
-          {/* {userData.map((data) => (
+          {userData.map((data) => (
             <>
               Hi {data.firstName} {data.lastName}!
             </>
-          ))} */}
+          ))}
         </StyledH5>
         <StyledParagraph>
           The next Digital Services Lunch & Learn will be:
