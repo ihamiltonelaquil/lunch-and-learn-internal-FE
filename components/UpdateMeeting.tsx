@@ -110,7 +110,8 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   const [linkName, setLinkName] = useState<string>();
 
   const [managingAttachments, setManagingAttachments] = useState<boolean>(false);
-  const [managingLinks, setManagingLinks] = useState<boolean>(false);
+
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const fileList = event.target.files;
@@ -121,7 +122,6 @@ const UpdateMeeting: React.FC<MeetingData> = ({
 
   async function handleAttachmentUpload(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("uploading file");
     setIsSubmittingAttachment(true);
     const data = new FormData();
     if (file) {
@@ -168,6 +168,18 @@ const UpdateMeeting: React.FC<MeetingData> = ({
     if (formRef.current) {
       formRef.current.reset();
     }
+  }
+
+  async function handleDeleteMeeting() {
+    fetch(`https://localhost:555/api/Meeting/${meetingID}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: '',
+    }).then((response) => setResponse(response));
+    toggleOpen(false);
   }
 
   function saveData() {
@@ -279,7 +291,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                     onChange={(e) => {
                       e.currentTarget.setCustomValidity("");
                       if (e.target.value) {
-                        setLinkName(e.target.value);
+                        setLinkAddress(e.target.value);
                       }
                     }}
                   />
@@ -299,7 +311,21 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                   </span>
                 </form>
                 <InputHeader>Manage Attachments/Links</InputHeader>
-                <RoundedButton width={290} onClick={() => { setManagingAttachments(true) }}>Manage Attachments/Links</RoundedButton>
+                <RoundedButton width={300} onClick={() => { setManagingAttachments(true) }}>Manage Attachments/Links</RoundedButton>
+                { !confirmDelete ?
+                  <>
+                    <InputHeader>Delete Meeting</InputHeader>
+                    <RoundedButton width={300} onClick={() => { setConfirmDelete(true) }}>Delete this Meeting</RoundedButton>
+                  </>
+                  :
+                  <>
+                    <InputHeader>Are you sure? (This cannot be undone)</InputHeader>
+                    <span>
+                      <RoundedButton width={142} onClick={handleDeleteMeeting}>Yes</RoundedButton>
+                      <RoundedButton width={142} onClick={() => { setConfirmDelete(false) }}>No</RoundedButton>
+                    </span>
+                  </>
+                }
               </InputWrapper>
             </GridWrapper>
           </div>

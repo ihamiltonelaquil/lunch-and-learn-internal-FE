@@ -165,7 +165,7 @@ export const CenteredDiv = styled.div`
 
 export const RoundedButton = styled.button<RoundedButtonProps>`
   width: ${(props) => props.width}px;
-  margin: 3px 0px;
+  margin: 6px 0px;
   border-radius: 50px;
   background-color: white;
   border: 2px solid lightgray;

@@ -41,8 +41,6 @@ const AttachmentsList: React.FC<{
       });
   }, [attachmentData, linkData, meetingId]);
 
-  console.log(linkData);
-
   function deleteAttachment(attachmentId: string) {
     fetch(`https://localhost:555/api/attachment/${attachmentId}`, {
       method: "DELETE",
@@ -67,7 +65,8 @@ const AttachmentsList: React.FC<{
     });
   }
 
-  if (!attachmentData.keys) {
+
+  if ((attachmentData.length==0 && linkData.length == 0)) {
     return (
       <div>
         <h3>No Attachments Found</h3>
@@ -78,7 +77,8 @@ const AttachmentsList: React.FC<{
       <div style={{width: '100%'}}>
         <h3>Attachments</h3>
         <ul className="listStyle1">
-          {attachmentData.map((attachment: Attachment) => (
+          { attachmentData.length > 0 && 
+            attachmentData.map((attachment: Attachment) => (
             <li key={attachment.attachmentId}>
               <AttachmentContainer>
                 <FontAwesomeIcon
@@ -100,7 +100,8 @@ const AttachmentsList: React.FC<{
               </AttachmentContainer>
             </li>
           ))}
-          {linkData.map((link: Link) => (
+          { linkData.length > 0 && 
+            linkData.map((link: Link) => (
             <li key={link.linkID}>
               <AttachmentContainer>
                 <FontAwesomeIcon icon={faLink} size="2x" />
