@@ -40,8 +40,6 @@ const AttachmentsList: React.FC<{
       });
   }, [attachmentData, linkData, meetingId]);
 
-
-
   function deleteAttachment(attachmentId: string) {
     fetch(`https://localhost:555/api/attachment/${attachmentId}`, {
       method: "DELETE",
