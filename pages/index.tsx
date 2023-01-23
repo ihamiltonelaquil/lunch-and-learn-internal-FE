@@ -1,6 +1,5 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
-import InitLoginPage from "../components/InitLoginPage";
 import LandingPage from "../components/LandingPage";
 import LoginScreen from "../components/LoginScreen";
 import MainPage from "../components/MainPage";
