@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { iconLookup } from "../lib/utils";
 import { AttachmentContainer, RoundedButton } from "./styledComponents";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 interface Attachment {
   attachmentId: string;
@@ -48,7 +47,7 @@ const AttachmentsList: React.FC<{
       if (res.ok) {
         setResponseData(res);
       } else {
-        console.log("Error occurred while deleting attachment")
+        console.log("Error occurred while deleting attachment");
       }
     });
   }
@@ -60,7 +59,7 @@ const AttachmentsList: React.FC<{
       if (res.ok) {
         setResponseData(res);
       } else {
-        console.log("Error occurred while deleting link")
+        console.log("Error occurred while deleting link");
       }
     });
   }
@@ -74,7 +73,7 @@ const AttachmentsList: React.FC<{
     );
   } else {
     return (
-      <div style={{width: '100%'}}>
+      <div style={{ width: "100%" }}>
         <h3>Attachments</h3>
         <ul className="listStyle1">
           { attachmentData.length > 0 && 
@@ -86,17 +85,22 @@ const AttachmentsList: React.FC<{
                   size="2x"
                 />
                 <p> {attachment.fileName}</p>
-                {editing ?
-                  <RoundedButton width={100} onClick={() => deleteAttachment(attachment.attachmentId)}>
+                {editing ? (
+                  <RoundedButton
+                    width={100}
+                    onClick={() => deleteAttachment(attachment.attachmentId)}
+                  >
                     Delete
                   </RoundedButton>
-
-                  :
-
-                  <a href={attachment.publicURI} target="_blank" rel="noreferrer">
+                ) : (
+                  <a
+                    href={attachment.publicURI}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Download
                   </a>
-                }
+                )}
               </AttachmentContainer>
             </li>
           ))}
@@ -106,17 +110,18 @@ const AttachmentsList: React.FC<{
               <AttachmentContainer>
                 <FontAwesomeIcon icon={faLink} size="2x" />
                 <p> {link.name}</p>
-                {editing ?
-                  <RoundedButton width={100} onClick={() => deleteLink(link.linkID)}>
+                {editing ? (
+                  <RoundedButton
+                    width={100}
+                    onClick={() => deleteLink(link.linkID)}
+                  >
                     Delete
                   </RoundedButton>
-
-                  :
-
+                ) : (
                   <a href={link.link} target="_blank" rel="noreferrer">
                     Visit
                   </a>
-                }
+                )}
               </AttachmentContainer>
             </li>
           ))}
