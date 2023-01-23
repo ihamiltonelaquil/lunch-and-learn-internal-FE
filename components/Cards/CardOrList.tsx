@@ -6,6 +6,7 @@ import Table from "../Table";
 import CardSlider from "./CardSlider";
 import {
   CenteredDiv,
+  DarkBG,
   RoundedButton,
   StyledExpandedMeetingCard,
 } from "../styledComponents";
@@ -81,7 +82,14 @@ export default function CardOrList() {
     return (
       <>
         {showCreate ? (
-          <CreateMeeting />
+          <>
+            <CreateMeeting setShowCreate={setShowCreate} />
+            <DarkBG             
+              onClick={() => {
+                handleCreate();
+              }}
+            />
+          </>
         ) : (
           <>
             {showTable ? <Table data={tableData} /> : <CardSlider />}
