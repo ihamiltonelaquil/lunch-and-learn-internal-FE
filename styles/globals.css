@@ -203,3 +203,7 @@ input[type="datetime-local"]{
   border-radius: 34px;
   padding: 5px 10px;
 }
+
+.fa-link{
+  width: 24px;
+}

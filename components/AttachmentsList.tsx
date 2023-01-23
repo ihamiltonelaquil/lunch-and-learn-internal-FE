@@ -109,7 +109,7 @@ const AttachmentsList: React.FC<{
             linkData.map((link: Link) => (
             <li key={link.linkID}>
               <AttachmentContainer>
-                <FontAwesomeIcon icon={faLink} size="2x" />
+                <FontAwesomeIcon icon={faLink} size="2x" className="fa-link" />
                 <p> {link.name}</p>
                 {editing ? (
                   <RoundedButton

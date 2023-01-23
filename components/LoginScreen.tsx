@@ -125,14 +125,15 @@ const Login = () => {
     }
   }, [user?.sub, userAuthID]);
 
-  function saveData() {
+  async function saveData(e: any) {
+    e.preventDefault();
     let data = {
       authID: userAuthID,
       firstName,
       lastName,
     };
-
-    fetch("https://localhost:555/api/User", {
+    console.log(data);
+    const res = await fetch("https://localhost:555/api/User", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -144,6 +145,12 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
       });
+    if(res.status == 200){
+      window.location.reload();
+    }
+    else{
+      window.alert("Something went wrong, please try again");
+    }
   }
 
   return (

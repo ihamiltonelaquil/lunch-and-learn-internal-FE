@@ -133,13 +133,12 @@ export const DarkBG = styled.div`
 export const AttachmentContainer = styled.span`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   text-align: center;
   width: 100%;
   margin: -1px;
-  padding: 5px;
+  padding: 5px 10px;
   gap: 20px;
   border-top: 1px;
   border-bottom: 1px;
@@ -148,7 +147,8 @@ export const AttachmentContainer = styled.span`
   border-style: solid;
   border-color: var(--colour-grey-dark);
   p{
-    width: 50%;
+    width: inherit;
+    text-align: left;
   }
   `;
 
