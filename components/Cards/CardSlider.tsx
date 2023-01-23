@@ -20,7 +20,12 @@ export default function CardSlider() {
       .then((data) => {
         setCardData(data);
       });
-    setExpandedCardData(cardData[currentIndex]);
+  }, []);
+
+useEffect(() => {
+    if (cardData.length > 0) {
+        setExpandedCardData(cardData[currentIndex]);
+    }
   }, [cardData, currentIndex]);
 
   useComponentDidMount(() => {

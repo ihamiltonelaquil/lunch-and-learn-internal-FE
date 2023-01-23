@@ -57,12 +57,12 @@ const GreetingCard = () => {
         <StyledH5>
           {userData.length > 0 ? (
             userData.map((data) => (
-              <>
+              <div key={data.authID}>
                 Hi {data.firstName} {data.lastName}!
-              </>
+              </div>
             ))
           ) : (
-            <>Loading name</>
+            <div>Loading name</div>
           )}
         </StyledH5>
         <StyledParagraph>
