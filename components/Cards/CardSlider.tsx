@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import ExpandedMeetingCard from "./ExpandedMeetingCard";
-import { DarkBG } from "../styledComponents";
+import { DarkBG } from "../StyleComponents/styledComponents";
 import { useComponentDidMount } from "../../lib/utils";
 
 export default function CardSlider() {

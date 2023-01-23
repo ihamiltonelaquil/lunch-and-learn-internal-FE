@@ -1,28 +1,14 @@
-import {
-  useState,
-  useEffect,
-  ChangeEvent,
-  FormEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useRef,
-} from "react";
-import Link from "next/link";
+import { useState, Dispatch, SetStateAction, useCallback, useRef } from "react";
 import {
   CenteredDiv,
-  DarkBG,
   RoundedButton,
   StyledCard,
-  StyledExpandedMeetingCard,
   StyledMeetingCardButton,
-} from "./styledComponents";
-
+} from "../StyleComponents/styledComponents";
 import styled from "styled-components";
 import ReactLoading from "react-loading";
-import { NodeNextRequest } from "next/dist/server/base-http/node";
 import React from "react";
-import AttachmentsList from "./AttachmentsList";
+import AttachmentsList from "../AttachmentsList";
 
 const InputHeader = styled.p`
   text-align: left;
@@ -124,7 +110,8 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   const [linkAddress, setLinkAddress] = useState<string>();
   const [linkName, setLinkName] = useState<string>();
 
-  const [managingAttachments, setManagingAttachments] = useState<boolean>(false);
+  const [managingAttachments, setManagingAttachments] =
+    useState<boolean>(false);
 
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
@@ -173,14 +160,17 @@ const UpdateMeeting: React.FC<MeetingData> = ({
 
   async function handleAddLink(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    fetch(`https://localhost:555/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: '',
-    }).then((response) => setResponse(response));
+    fetch(
+      `https://localhost:555/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: "",
+      }
+    ).then((response) => setResponse(response));
     setLinkAddress("");
     setLinkName("");
     if (formRef.current) {
@@ -195,7 +185,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: '',
+      body: "",
     }).then((response) => setResponse(response));
     toggleOpen(false);
   }
@@ -363,21 +353,46 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                   </span>
                 </form>
                 <InputHeader>Manage Attachments/Links</InputHeader>
-                <RoundedButton width={300} onClick={() => { setManagingAttachments(true) }}>Manage Attachments/Links</RoundedButton>
-                { !confirmDelete ?
+                <RoundedButton
+                  width={300}
+                  onClick={() => {
+                    setManagingAttachments(true);
+                  }}
+                >
+                  Manage Attachments/Links
+                </RoundedButton>
+                {!confirmDelete ? (
                   <>
                     <InputHeader>Delete Meeting</InputHeader>
-                    <RoundedButton width={300} onClick={() => { setConfirmDelete(true) }}>Delete this Meeting</RoundedButton>
+                    <RoundedButton
+                      width={300}
+                      onClick={() => {
+                        setConfirmDelete(true);
+                      }}
+                    >
+                      Delete this Meeting
+                    </RoundedButton>
                   </>
-                  :
+                ) : (
                   <>
-                    <InputHeader>Are you sure? (This cannot be undone)</InputHeader>
+                    <InputHeader>
+                      Are you sure? (This cannot be undone)
+                    </InputHeader>
                     <span>
-                      <RoundedButton width={142} onClick={handleDeleteMeeting}>Yes</RoundedButton>
-                      <RoundedButton width={142} onClick={() => { setConfirmDelete(false) }}>No</RoundedButton>
+                      <RoundedButton width={142} onClick={handleDeleteMeeting}>
+                        Yes
+                      </RoundedButton>
+                      <RoundedButton
+                        width={142}
+                        onClick={() => {
+                          setConfirmDelete(false);
+                        }}
+                      >
+                        No
+                      </RoundedButton>
                     </span>
                   </>
-                }
+                )}
               </InputWrapper>
             </GridWrapper>
           </div>

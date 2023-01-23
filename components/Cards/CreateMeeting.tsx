@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import {
   CenteredDiv,
-  RoundedButton,
   StyledExpandedMeetingCard,
   StyledMeetingCardButton,
-} from "./styledComponents";
-import CardOrList from "./Cards/CardOrList";
+} from "../StyleComponents/styledComponents";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 const InputHeader = styled.p`
@@ -62,7 +60,9 @@ interface UserData {
   lastName: string;
 }
 
-export default function CreateMeeting(props: { setShowCreate: (arg0: boolean) => void; }) {
+export default function CreateMeeting(props: {
+  setShowCreate: (arg0: boolean) => void;
+}) {
   const { user } = useUser();
   const [isOpen, setOpen] = useState(false);
   const [topic, setTopic] = useState<string>("");

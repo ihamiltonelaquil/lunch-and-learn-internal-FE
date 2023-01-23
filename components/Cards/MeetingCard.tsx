@@ -11,9 +11,12 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { StyledCard, StyledMeetingCardButton } from "../styledComponents";
+import {
+  StyledCard,
+  StyledMeetingCardButton,
+} from "../StyleComponents/styledComponents";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import UpdateMeeting from "../UpdateMeeting";
+import UpdateMeeting from "./UpdateMeeting";
 
 interface MeetingData {
   authID: string;
@@ -73,14 +76,14 @@ const MainCard: React.FC<{
     <>
       {editing ? (
         <UpdateMeeting
-        meetingID={meetingData.meetingID}
-        authID={meetingData.authID}
-        currentName={meetingData.creatorName}
-        currentDesc={meetingData.description}
-        currentTopic={meetingData.topic}
-        currentStart={meetingData.meetingStart}
-        currentEnd={meetingData.meetingEnd}
-        toggleOpen={toggleEditing}
+          meetingID={meetingData.meetingID}
+          authID={meetingData.authID}
+          currentName={meetingData.creatorName}
+          currentDesc={meetingData.description}
+          currentTopic={meetingData.topic}
+          currentStart={meetingData.meetingStart}
+          currentEnd={meetingData.meetingEnd}
+          toggleOpen={toggleEditing}
         />
       ) : (
         <StyledCard>

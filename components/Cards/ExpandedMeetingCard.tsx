@@ -16,7 +16,7 @@ import AttachmentsList from "../AttachmentsList";
 import {
   StyledExpandedMeetingCard,
   StyledMeetingCardButton,
-} from "../styledComponents";
+} from "../StyleComponents/styledComponents";
 
 interface MeetingData {
   meetingID: string;
