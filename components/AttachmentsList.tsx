@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { iconLookup } from "../lib/utils";
 import { AttachmentContainer, RoundedButton } from "./styledComponents";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 interface Attachment {
   attachmentId: string;
