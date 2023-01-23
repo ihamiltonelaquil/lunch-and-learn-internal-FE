@@ -45,7 +45,7 @@ const MenuItem = styled.div`
   &:hover {
     background-color: #e6e6e6;
   }
-  >a{
+  > a {
     font-size: small;
   }
 `;

@@ -1,9 +1,0 @@
-.flex-rectangle {
-  width: 100%;
-  background: #ca0164;
-}
-.flex-rectangle:before {
-  content: "";
-  display: block;
-  padding-top: 25%;
-}
