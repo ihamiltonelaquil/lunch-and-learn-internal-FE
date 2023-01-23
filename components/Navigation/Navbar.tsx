@@ -35,10 +35,6 @@ export default function Navbar() {
           className="raa"
           src="https://www.previewindustries.com.au/wp-content/uploads/2021/06/raa-logo.png"
         />
-        <Link href="/CRUD/deleteMeeting">Delete</Link>
-
-        <Link href="/CRUD/createMeeting">Create</Link>
-
         <DropDownNav />
       </NavContainer>
     </>

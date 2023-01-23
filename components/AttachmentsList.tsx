@@ -106,25 +106,29 @@ const AttachmentsList: React.FC<{
             ))}
           {linkData.length > 0 &&
             linkData.map((link: Link) => (
-            <li key={link.linkID}>
-              <AttachmentContainer>
-                <FontAwesomeIcon icon={faLink} size="2x" className="fa-link" />
-                <p> {link.name}</p>
-                {editing ? (
-                  <RoundedButton
-                    width={100}
-                    onClick={() => deleteLink(link.linkID)}
-                  >
-                    Delete
-                  </RoundedButton>
-                ) : (
-                  <a href={link.link} target="_blank" rel="noreferrer">
-                    Visit
-                  </a>
-                )}
-              </AttachmentContainer>
-            </li>
-          ))}
+              <li key={link.linkID}>
+                <AttachmentContainer>
+                  <FontAwesomeIcon
+                    icon={faLink}
+                    size="2x"
+                    className="fa-link"
+                  />
+                  <p> {link.name}</p>
+                  {editing ? (
+                    <RoundedButton
+                      width={100}
+                      onClick={() => deleteLink(link.linkID)}
+                    >
+                      Delete
+                    </RoundedButton>
+                  ) : (
+                    <a href={link.link} target="_blank" rel="noreferrer">
+                      Visit
+                    </a>
+                  )}
+                </AttachmentContainer>
+              </li>
+            ))}
         </ul>
       </div>
     );

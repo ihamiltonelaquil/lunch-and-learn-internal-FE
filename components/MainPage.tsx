@@ -9,13 +9,7 @@ const MainPage = () => {
   return (
     <>
       <Navbar />
-      <GreetingCard
-        name={
-          typeof user?.nickname == "string"
-            ? user.nickname.replaceAll(".", " ").toString()
-            : "No nickname found"
-        }
-      />
+      <GreetingCard />
       <CardOrList />
     </>
   );

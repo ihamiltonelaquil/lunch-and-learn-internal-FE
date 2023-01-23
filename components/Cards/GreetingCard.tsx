@@ -32,7 +32,7 @@ const CenteredDiv = styled.div<CenteredDivProps>`
   margin-bottom: 0px;
 `;
 
-const GreetingCard = (props: { name: string }): JSX.Element => {
+const GreetingCard = () => {
   const { user } = useUser();
   const [userData, setUserData] = useState<UserData[]>([]);
   const [isBusy, setBusy] = useState(true);
@@ -55,11 +55,15 @@ const GreetingCard = (props: { name: string }): JSX.Element => {
     <>
       <CenteredDiv marginTop={marginTop}>
         <StyledH5>
-          {/* {userData.map((data) => (
-            <>
-              Hi {data.firstName} {data.lastName}!
-            </>
-          ))} */}
+          {userData ? (
+            userData.map((data) => (
+              <>
+                Hi {data.firstName} {data.lastName}!
+              </>
+            ))
+          ) : (
+            <>Loading name</>
+          )}
         </StyledH5>
         <StyledParagraph>
           The next Digital Services Lunch & Learn will be:

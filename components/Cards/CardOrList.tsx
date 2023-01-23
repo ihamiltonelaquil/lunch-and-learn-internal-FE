@@ -80,35 +80,41 @@ export default function CardOrList() {
   if (!isMobile) {
     return (
       <>
-        {showTable ? <Table data={tableData} /> : <CardSlider />}
-        <CenteredDiv>
-          {showTable ? (
-            <>
-              <RoundedButton width={width} onClick={handleClick}>
-                Card View
-              </RoundedButton>
-              <form onSubmit={handleSubmit}>
-                <SearchWrapper>
-                  <SearchInput
-                    type="text"
-                    placeholder="Search..."
-                    onChange={handleChange}
-                  />
-                  <SearchIcon size={20} />
-                </SearchWrapper>
-              </form>
-            </>
-          ) : (
-            <>
-              <RoundedButton width={width} onClick={handleClick}>
-                List View
-              </RoundedButton>
-              <RoundedButton width={width} onClick={handleCreate}>
-                Create
-              </RoundedButton>
-            </>
-          )}
-        </CenteredDiv>
+        {showCreate ? (
+          <CreateMeeting />
+        ) : (
+          <>
+            {showTable ? <Table data={tableData} /> : <CardSlider />}
+            <CenteredDiv>
+              {showTable ? (
+                <>
+                  <RoundedButton width={width} onClick={handleClick}>
+                    Card View
+                  </RoundedButton>
+                  <form onSubmit={handleSubmit}>
+                    <SearchWrapper>
+                      <SearchInput
+                        type="text"
+                        placeholder="Search..."
+                        onChange={handleChange}
+                      />
+                      <SearchIcon size={20} />
+                    </SearchWrapper>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <RoundedButton width={width} onClick={handleClick}>
+                    List View
+                  </RoundedButton>
+                  <RoundedButton width={width} onClick={handleCreate}>
+                    Create
+                  </RoundedButton>
+                </>
+              )}
+            </CenteredDiv>
+          </>
+        )}
       </>
     );
   }

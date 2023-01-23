@@ -7,6 +7,7 @@ import {
   StyledMeetingCardButton,
 } from "./styledComponents";
 import CardOrList from "./Cards/CardOrList";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const InputHeader = styled.p`
   text-align: left;
@@ -55,17 +56,63 @@ const StyledTextArea = styled.textarea`
     border: 2px solid var(--color-accent-dark);
   }
 `;
+interface UserData {
+  authID: string;
+  firstName: string;
+  lastName: string;
+}
 
 export default function CreateMeeting() {
+  const { user } = useUser();
   const [isOpen, setOpen] = useState(false);
   const [topic, setTopic] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [meetingStart, setMeetingStart] = useState<string>("");
   const [meetingEnd, setMeetingEnd] = useState<string>("");
+  const [creatorName, setCreatorName] = useState<string>();
+  const [userData, setUserData] = useState<UserData[]>([]);
+
+  useEffect(() => {
+    if (user?.sub != undefined || null) {
+      fetch(`https://localhost:555/api/user/${user?.sub}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUserData(data);
+        });
+    }
+  }, [user]);
 
   const handleClose = () => {
     setOpen(!isOpen);
   };
+
+  useEffect(() => {
+    userData.map((data) => {
+      setCreatorName(data.firstName.concat(" ", data.lastName));
+    });
+  }, [creatorName, userData]);
+
+  function saveData() {
+    let data = {
+      authID: user?.sub || "fail",
+      creatorName: creatorName,
+      meetingStart: meetingStart,
+      meetingEnd: meetingEnd,
+      topic: topic,
+      description: description,
+    };
+    console.log(data);
+    fetch("https://localhost:555/api/Meeting", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   return (
     <>
@@ -124,7 +171,9 @@ export default function CreateMeeting() {
             <StyledMeetingCardButton onClick={handleClose}>
               Close
             </StyledMeetingCardButton>
-            <StyledMeetingCardButton>Save</StyledMeetingCardButton>
+            <StyledMeetingCardButton onClick={saveData}>
+              Next
+            </StyledMeetingCardButton>
           </span>
         </StyledExpandedMeetingCard>
       )}
