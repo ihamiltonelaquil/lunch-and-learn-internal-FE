@@ -32,8 +32,9 @@ export default function Navbar() {
     <>
       <NavContainer>
         <img
-          className="raa"
-          src="https://www.previewindustries.com.au/wp-content/uploads/2021/06/raa-logo.png"
+          className="original-logo-do-not-steal raa"
+          src="https://lunchandlearnblob.blob.core.windows.net/attachments/LNL-logo2.png"
+          alt="logo"
         />
         <DropDownNav />
       </NavContainer>
