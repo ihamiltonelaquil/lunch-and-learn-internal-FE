@@ -65,8 +65,7 @@ const AttachmentsList: React.FC<{
     });
   }
 
-
-  if ((attachmentData.length==0 && linkData.length == 0)) {
+  if (attachmentData.length == 0 && linkData.length == 0) {
     return (
       <div>
         <h3>No Attachments Found</h3>
@@ -77,35 +76,35 @@ const AttachmentsList: React.FC<{
       <div style={{ width: "100%" }}>
         <h3>Attachments</h3>
         <ul className="listStyle1">
-          { attachmentData.length > 0 && 
+          {attachmentData.length > 0 &&
             attachmentData.map((attachment: Attachment) => (
-            <li key={attachment.attachmentId}>
-              <AttachmentContainer>
-                <FontAwesomeIcon
-                  icon={iconLookup(attachment.fileType)}
-                  size="2x"
-                />
-                <p> {attachment.fileName}</p>
-                {editing ? (
-                  <RoundedButton
-                    width={100}
-                    onClick={() => deleteAttachment(attachment.attachmentId)}
-                  >
-                    Delete
-                  </RoundedButton>
-                ) : (
-                  <a
-                    href={attachment.publicURI}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Download
-                  </a>
-                )}
-              </AttachmentContainer>
-            </li>
-          ))}
-          { linkData.length > 0 && 
+              <li key={attachment.attachmentId}>
+                <AttachmentContainer>
+                  <FontAwesomeIcon
+                    icon={iconLookup(attachment.fileType)}
+                    size="2x"
+                  />
+                  <p> {attachment.fileName}</p>
+                  {editing ? (
+                    <RoundedButton
+                      width={100}
+                      onClick={() => deleteAttachment(attachment.attachmentId)}
+                    >
+                      Delete
+                    </RoundedButton>
+                  ) : (
+                    <a
+                      href={attachment.publicURI}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Download
+                    </a>
+                  )}
+                </AttachmentContainer>
+              </li>
+            ))}
+          {linkData.length > 0 &&
             linkData.map((link: Link) => (
             <li key={link.linkID}>
               <AttachmentContainer>
