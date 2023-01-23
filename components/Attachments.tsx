@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
-import { convertToDate } from "../lib/dateHelper";
 
 export default function Attachments() {
   const [file, setFile] = useState<File | null>(null);

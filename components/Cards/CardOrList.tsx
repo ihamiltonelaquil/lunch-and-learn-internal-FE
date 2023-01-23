@@ -8,10 +8,8 @@ import {
   CenteredDiv,
   DarkBG,
   RoundedButton,
-  StyledExpandedMeetingCard,
-} from "../styledComponents";
-import ExpandedMeetingCard from "./ExpandedMeetingCard";
-import CreateMeeting from "../CreateMeeting";
+} from "../StyleComponents/styledComponents";
+import CreateMeeting from "./CreateMeeting";
 
 const SearchWrapper = styled.div`
   position: relative;
@@ -84,7 +82,7 @@ export default function CardOrList() {
         {showCreate ? (
           <>
             <CreateMeeting setShowCreate={setShowCreate} />
-            <DarkBG             
+            <DarkBG
               onClick={() => {
                 handleCreate();
               }}
