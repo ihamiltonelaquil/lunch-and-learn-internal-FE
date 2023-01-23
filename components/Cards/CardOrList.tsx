@@ -4,7 +4,13 @@ import { FaSearch } from "react-icons/fa";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Table from "../Table";
 import CardSlider from "./CardSlider";
-import { CenteredDiv, RoundedButton } from "../styledComponents";
+import {
+  CenteredDiv,
+  RoundedButton,
+  StyledExpandedMeetingCard,
+} from "../styledComponents";
+import ExpandedMeetingCard from "./ExpandedMeetingCard";
+import CreateMeeting from "../CreateMeeting";
 
 const SearchWrapper = styled.div`
   position: relative;
@@ -40,6 +46,7 @@ export default function CardOrList() {
   const [searchText, setSearchText] = useState("");
   const [tableData, setTableData] = useState<any[]>([]);
   const [showTable, setShowTable] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
   const [, isMobile] = useViewportWidth();
   const width = isMobile ? 100 : 150;
 
@@ -54,6 +61,10 @@ export default function CardOrList() {
   const handleClick = () => {
     setShowTable(!showTable);
     setSearchText("");
+  };
+
+  const handleCreate = () => {
+    setShowCreate(!showCreate);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -88,9 +99,14 @@ export default function CardOrList() {
               </form>
             </>
           ) : (
-            <RoundedButton width={width} onClick={handleClick}>
-              List View
-            </RoundedButton>
+            <>
+              <RoundedButton width={width} onClick={handleClick}>
+                List View
+              </RoundedButton>
+              <RoundedButton width={width} onClick={handleCreate}>
+                Create
+              </RoundedButton>
+            </>
           )}
         </CenteredDiv>
       </>
