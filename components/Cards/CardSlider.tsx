@@ -20,7 +20,7 @@ export default function CardSlider() {
       .then((data) => {
         setCardData(data);
       });
-  }, []);
+  }, [cardData]);
 
 useEffect(() => {
     if (cardData.length > 0) {
