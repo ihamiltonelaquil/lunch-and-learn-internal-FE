@@ -55,7 +55,7 @@ const GreetingCard = () => {
     <>
       <CenteredDiv marginTop={marginTop}>
         <StyledH5>
-          {userData ? (
+          {userData.length > 0 ? (
             userData.map((data) => (
               <>
                 Hi {data.firstName} {data.lastName}!
