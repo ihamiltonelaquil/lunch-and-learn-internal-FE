@@ -125,7 +125,8 @@ const Login = () => {
     }
   }, [user?.sub, userAuthID]);
 
-  async function saveData() {
+  async function saveData(event : any) {
+    event.preventDefault();
     let data = {
       authID: userAuthID,
       firstName,
@@ -143,6 +144,7 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
       });
+    window.location.reload();
   }
 
   return (
@@ -150,7 +152,7 @@ const Login = () => {
       <LoginBox>
         <LoginContainer>
           <WelcomeText>Welcome</WelcomeText>
-          <LoginForm>
+          <LoginForm onSubmit={saveData}>
             <LoginInput
               placeholder="First Name"
               className="form-control mb-2"
@@ -161,7 +163,7 @@ const Login = () => {
               className="form-control mb-2"
               onChange={(e) => setLastName(e.target.value)}
             />
-            <LoginButton type="submit" onClick={saveData}>
+            <LoginButton type="submit">
               Log In
             </LoginButton>
           </LoginForm>

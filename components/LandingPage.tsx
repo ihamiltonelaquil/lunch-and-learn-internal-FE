@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import styled, { css, keyframes } from "styled-components";
+import { RoundedButton } from "./StyleComponents/styledComponents";
 
 const Container = styled.div`
   display: flex;
@@ -20,11 +21,12 @@ const fallDown = keyframes`
     transform: translateY(-100%);
     opacity: 0;
   }
-  8% {
+  50% {
     opacity: 1;
   }
-  17% {
+  100% {
     transform: translateY(0);
+    opacity: 1;
   }
 `;
 
@@ -39,8 +41,10 @@ const Title = styled.h1`
 
 const Word = styled.span`
   display: inline-block;
+  opacity: 0;
   ${letterFall}
   animation-delay: calc(var(--animation-index) * 0.1s);
+  margin: 5px;
 `;
 
 const Button = styled.button`
@@ -61,9 +65,9 @@ export default function LandingPage() {
             </Word>
           ))}
         </Title>
-        <Button type="button" onClick={() => router.push("/api/auth/login")}>
+        <RoundedButton width={180} type="button" onClick={() => router.push("/api/auth/login")}>
           Login
-        </Button>
+        </RoundedButton>
       </Wrapper>
     </Container>
   );
