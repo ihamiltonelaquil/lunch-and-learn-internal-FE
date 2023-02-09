@@ -42,7 +42,7 @@ const GreetingCard = () => {
   useEffect(() => {
     if (user?.sub != undefined || null) {
       setBusy(true);
-      fetch(`https://localhost:555/api/user/${user?.sub}`)
+      fetch(process.env.API_ROUTE+`/api/user/${user?.sub}`)
         .then((res) => res.json())
         .then((data) => {
           setUserData(data);

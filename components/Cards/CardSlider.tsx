@@ -15,7 +15,7 @@ export default function CardSlider() {
   const [expandedCardData, setExpandedCardData] = useState(cardData[0]);
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/Meeting/`)
+    fetch(process.env.API_ROUTE+`/api/Meeting/`)
       .then((res) => res.json())
       .then((data) => {
         setCardData(data);

@@ -78,7 +78,7 @@ export default function CreateMeeting(props: {
 
   useEffect(() => {
     if (user?.sub != undefined || null) {
-      fetch(`https://localhost:555/api/user/${user?.sub}`)
+      fetch(process.env.API_ROUTE+`/api/user/${user?.sub}`)
         .then((res) => res.json())
         .then((data) => {
           setUserData(data);
@@ -102,7 +102,7 @@ export default function CreateMeeting(props: {
       description: description,
     };
     console.log(data);
-    fetch("https://localhost:555/api/Meeting", {
+    fetch(process.env.API_ROUTE+"/api/Meeting", {
       method: "POST",
       headers: {
         Accept: "application/json",

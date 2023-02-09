@@ -47,9 +47,7 @@ const Word = styled.span`
   margin: 5px;
 `;
 
-const Button = styled.button`
-  margin-top: 20px;
-`;
+
 
 export default function LandingPage() {
   const router = useRouter();
@@ -60,7 +58,7 @@ export default function LandingPage() {
       <Wrapper>
         <Title>
           {text.split(" ").map((word, index) => (
-            <Word key={index} style={{ "--animation-index": index }}>
+            <Word key={index} style={{ "--animation-index": index } as any}>
               {word}{" "}
             </Word>
           ))}

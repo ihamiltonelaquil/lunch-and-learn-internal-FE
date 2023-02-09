@@ -22,7 +22,7 @@ export default function Attachments() {
     if (file) {
       data.append("file", file);
       const res = await fetch(
-        `https://localhost:555/api/Attachment/upload?meetingId=${meetingId}`,
+        process.env.API_ROUTE+`/api/Attachment/upload?meetingId=${meetingId}`,
         {
           method: "POST",
           body: data,
@@ -35,7 +35,7 @@ export default function Attachments() {
   }
 
   useEffect(() => {
-    fetch(`https://localhost:555/api/Attachment`)
+    fetch(process.env.API_ROUTE+`/api/Attachment`)
       .then((res) => res.json())
       .then((data) => {
         setAttachments(data);

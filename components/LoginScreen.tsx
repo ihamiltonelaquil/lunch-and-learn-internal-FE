@@ -132,7 +132,7 @@ const Login = () => {
       firstName,
       lastName,
     };
-    await fetch("https://localhost:555/api/User", {
+    await fetch(process.env.API_ROUTE+"/api/User", {
       method: "POST",
       headers: {
         Accept: "application/json",
