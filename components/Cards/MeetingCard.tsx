@@ -10,8 +10,10 @@ import React, {
   useCallback,
   Dispatch,
   SetStateAction,
+  useContext,
 } from "react";
 import {
+  CardButtonWrapper,
   StyledCard,
   StyledMeetingCardButton,
 } from "../StyleComponents/styledComponents";
@@ -31,7 +33,8 @@ interface MeetingData {
 const MainCard: React.FC<{
   meetingData: MeetingData;
   toggleCard: Dispatch<SetStateAction<boolean>>;
-}> = ({ meetingData, toggleCard }) => {
+  toggleUpdate: Dispatch<SetStateAction<boolean>>;
+}> = ({ meetingData, toggleCard, toggleUpdate }) => {
   const { authID, meetingID, topic, meetingStart, meetingEnd, creatorName } =
     meetingData;
 
@@ -41,6 +44,7 @@ const MainCard: React.FC<{
   const end = convertToDate(meetingEnd);
   var now = new Date();
   const [editing, setEditing] = useState(false);
+  
 
   const [meetingState, setMeetingState] = useState({
     meetingStatus: timeOffset(now, start, end).meetingStatus,
@@ -49,6 +53,7 @@ const MainCard: React.FC<{
 
   function toggleEditing() {
     setEditing((v) => !v);
+    toggleUpdate((v) => !v);
   }
 
   const handleOpenCard = useCallback(
@@ -86,35 +91,37 @@ const MainCard: React.FC<{
           toggleOpen={toggleEditing}
         />
       ) : (
-        <StyledCard>
-          <div className="mainContent">
-            <h1>{topic}</h1>
-            <p>Presented by</p>
-            <h3>{creatorName}</h3>
-            <p>{meetingState.meetingStatus}</p>
-            <h3>{meetingState.meetingOffset}</h3>
-            <p>at</p>
-            <h3>
-              {timeFormatter.format(convertToDate(meetingStart)) +
-                "-" +
-                timeFormatter.format(convertToDate(meetingEnd)) +
-                " " +
-                dateFormatter.format(convertToDate(meetingStart))}
-            </h3>
-          </div>
-          <span className="buttons row justify-content-center">
-            {authIDMatches ? (
-              <StyledMeetingCardButton onClick={() => setEditing(true)}>
-                Edit Details
-              </StyledMeetingCardButton>
-            ) : (
-              ""
-            )}
-            <StyledMeetingCardButton onClick={handleOpenCard}>
-              More Information
+        <>
+          <StyledCard>
+            <div className="mainContent">
+              <h1>{topic}</h1>
+              <p>Presented by</p>
+              <h3>{creatorName}</h3>
+              <p>{meetingState.meetingStatus}</p>
+              <h3>{meetingState.meetingOffset}</h3>
+              <p>at</p>
+              <h3>
+                {timeFormatter.format(convertToDate(meetingStart)) +
+                  "-" +
+                  timeFormatter.format(convertToDate(meetingEnd)) +
+                  " " +
+                  dateFormatter.format(convertToDate(meetingStart))}
+              </h3>
+            </div>
+          </StyledCard>
+          <CardButtonWrapper>
+          {authIDMatches ? (
+            <StyledMeetingCardButton onClick={() => setEditing(true)}>
+              Edit Details
             </StyledMeetingCardButton>
-          </span>
-        </StyledCard>
+          ) : (
+            ""
+          )}
+          <StyledMeetingCardButton onClick={handleOpenCard}>
+            More Information
+          </StyledMeetingCardButton>
+        </CardButtonWrapper>
+      </>
       )}
     </>
   );

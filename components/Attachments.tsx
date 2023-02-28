@@ -40,7 +40,7 @@ export default function Attachments() {
       .then((data) => {
         setAttachments(data);
       });
-  }, [attachments]);
+  }, []);
 
   return (
     <>

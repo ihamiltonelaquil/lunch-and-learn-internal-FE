@@ -47,6 +47,7 @@ export default function CardOrList() {
   const [showTable, setShowTable] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const [, isMobile] = useViewportWidth();
+  const [didChange, setDidChange] = useState(false);
   const width = isMobile ? 100 : 150;
 
   useEffect(() => {
@@ -55,26 +56,34 @@ export default function CardOrList() {
       .then((data) => {
         setTableData(data);
       });
-  }, [tableData]);
+  }, [searchText]);
 
   const handleClick = () => {
     setShowTable(!showTable);
     setSearchText("");
+    toggleChange();
   };
 
   const handleCreate = () => {
     setShowCreate(!showCreate);
+    toggleChange();
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchText(searchName);
     setSearchName("");
+    toggleChange();
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchName(event.target.value);
+    toggleChange();
   };
+
+  function toggleChange() {
+    setDidChange(!didChange);
+  }
 
   if (!isMobile) {
     return (
@@ -90,13 +99,20 @@ export default function CardOrList() {
           </>
         ) : (
           <>
-            {showTable ? <Table data={tableData} /> : <CardSlider />}
+            {showTable ? <Table data={tableData} /> : <CardSlider didChange={didChange}/>}
             <CenteredDiv>
+              <label className="label">
+                <div className="toggle">
+                  <input className="toggle-state" type="checkbox" name="check" value="check" onChange={handleClick} />
+                  <div className="indicator"></div>
+                </div>
+                <div className="label-text">List View</div>
+              </label>
               {showTable ? (
                 <>
-                  <RoundedButton width={width} onClick={handleClick}>
+                  {/* <RoundedButton width={width} onClick={handleClick}>
                     Card View
-                  </RoundedButton>
+                  </RoundedButton> */}
                   <form onSubmit={handleSubmit}>
                     <SearchWrapper>
                       <SearchInput
@@ -110,9 +126,9 @@ export default function CardOrList() {
                 </>
               ) : (
                 <>
-                  <RoundedButton width={width} onClick={handleClick}>
+                  {/* <RoundedButton width={width} onClick={handleClick}>
                     List View
-                  </RoundedButton>
+                  </RoundedButton> */}
                   <RoundedButton width={width} onClick={handleCreate}>
                     Create
                   </RoundedButton>
