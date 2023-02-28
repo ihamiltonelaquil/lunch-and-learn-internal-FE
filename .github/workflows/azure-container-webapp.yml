@@ -40,6 +40,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
 
     steps:
       - uses: actions/checkout@v3
@@ -66,7 +70,8 @@ jobs:
 
   deploy:
     permissions:
-      contents: none
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     needs: build
     environment:
