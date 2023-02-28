@@ -4,55 +4,17 @@ import {
   CenteredDiv,
   StyledExpandedMeetingCard,
   StyledMeetingCardButton,
+  StyledInput,
+  InputHeader,
+  StyledTextArea
 } from "../StyleComponents/styledComponents";
 import { useUser } from "@auth0/nextjs-auth0/client";
-
-const InputHeader = styled.p`
-  text-align: left;
-  font-weight: 600;
-  margin: 5px 0px 0px 10px !important;
-`;
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   /* margin: 0px 10px; */
   width: 90%;
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  border: 2px solid white;
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  transition: border 0.2s ease-in-out;
-  &:focus {
-    border: 2px solid var(--color-accent-dark);
-  }
-`;
-
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  border: 2px solid white;
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  border-radius: 20px;
-  resize: none;
-  &:focus {
-    border: 2px solid var(--color-accent-dark);
-  }
 `;
 interface UserData {
   authID: string;
@@ -88,7 +50,7 @@ export default function CreateMeeting(props: {
 
   useEffect(() => {
     userData.map((data) => {
-      setCreatorName(data.firstName.concat(" ", data.lastName));
+      setCreatorName(data.firstName);
     });
   }, [creatorName, userData]);
 
@@ -159,6 +121,8 @@ export default function CreateMeeting(props: {
                   setMeetingStart(e.target.value);
                   setMeetingEnd(newMeetingEnd);
                 }
+                console.log(meetingStart);
+                console.log(meetingEnd);
               }}
             />
           </InputWrapper>

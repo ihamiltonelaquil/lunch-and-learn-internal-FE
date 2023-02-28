@@ -8,11 +8,16 @@ import ExpandedMeetingCard from "./ExpandedMeetingCard";
 import { DarkBG } from "../StyleComponents/styledComponents";
 import { useComponentDidMount } from "../../lib/utils";
 
-export default function CardSlider() {
+interface cardSliderProps {
+  didChange: boolean,
+}
+const CardSlider: React.FC<cardSliderProps> = (props: cardSliderProps) => {
   const [cardData, setCardData] = useState<any[]>([]);
   const [expandedCardIsVisible, setExpandedCardIsVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [expandedCardData, setExpandedCardData] = useState(cardData[0]);
+  const didChange = props.didChange;
+  const [didUpdate, setDidUpdate] = useState(false);
 
   useEffect(() => {
     fetch(process.env.API_ROUTE+`/api/Meeting/`)
@@ -20,7 +25,7 @@ export default function CardSlider() {
       .then((data) => {
         setCardData(data);
       });
-  }, [cardData]);
+  }, [currentIndex, didChange, didUpdate]);
 
 useEffect(() => {
     if (cardData.length > 0) {
@@ -38,6 +43,12 @@ useEffect(() => {
     }
   });
 
+  const toggleUpdate = () => {
+    setTimeout(() => {
+      setDidUpdate(!didUpdate);
+    }, 1000);
+  };
+
   var settings = {
     accessibility: true,
     arrows: false,
@@ -47,6 +58,7 @@ useEffect(() => {
     slidesToShow: 1,
     slidesToScroll: 1,
     centermode: true,
+    // centerPadding: "50px",
     easing: "ease-in",
     initialSlide: 0,
     swipeToSlide: true,
@@ -87,6 +99,7 @@ useEffect(() => {
                   key={data.meetingID}
                   meetingData={data}
                   toggleCard={toggleExpandedCard}
+                  toggleUpdate={toggleUpdate}
                 />
               </>
             );
@@ -96,3 +109,4 @@ useEffect(() => {
     </>
   );
 }
+export default CardSlider;

@@ -1,6 +1,7 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { RoundedButton, StyledInput } from "./StyleComponents/styledComponents";
 
 const bounce = keyframes`
   0% {
@@ -19,10 +20,10 @@ const LoginWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   @media (max-width: 600px) {
     width: 80%;
   }
+  z-index: 10;
 `;
 
 const LoginContainer = styled.div`
@@ -33,6 +34,7 @@ const LoginContainer = styled.div`
   margin: 0 auto;
   width: 50%;
   height: 50vh;
+  
 
   @media (max-width: 600px) {
     width: 100%;
@@ -82,9 +84,13 @@ const LoginBox = styled.div`
   border-radius: 20px;
   width: 50%;
   margin: 0 auto;
-  background-color: white;
+  background-color: var(--colour-bg);
   padding: 2em;
-  box-shadow: 2px 2px 10px #888888;
+  box-shadow: 
+          inset -2px -2px 6px rgba(255, 255, 255, .7), 
+          inset -2px -2px 4px rgba(255, 255, 255, .5), 
+          inset 2px 2px 2px rgba(255, 255, 255, .075), 
+          inset 2px 2px 4px rgba(0, 0, 0, .15);
 
   @media (max-width: 600px) {
     width: 100%;
@@ -92,21 +98,6 @@ const LoginBox = styled.div`
   }
 `;
 
-const LoginButton = styled.button`
-  padding: 0.5em;
-  margin: 0.5em;
-  color: white;
-  background: gray;
-  border: none;
-  border-radius: 3px;
-  :hover {
-    animation: ${bounce} 0.5s ease-in-out;
-    will-change: transform;
-  }
-  @media (max-width: 600px) {
-    width: 80%;
-  }
-`;
 const WelcomeText = styled.h1`
   padding-bottom: 20px;
   font-size: 2em;
@@ -151,21 +142,20 @@ const Login = () => {
     <LoginWrapper>
       <LoginBox>
         <LoginContainer>
-          <WelcomeText>Welcome</WelcomeText>
+          <WelcomeText>Set Details</WelcomeText>
           <LoginForm onSubmit={saveData}>
-            <LoginInput
+            <StyledInput
               placeholder="First Name"
-              className="form-control mb-2"
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <LoginInput
+            <StyledInput
               placeholder="Last Name"
-              className="form-control mb-2"
               onChange={(e) => setLastName(e.target.value)}
             />
-            <LoginButton type="submit">
-              Log In
-            </LoginButton>
+            <br></br>
+            <RoundedButton type="submit" style={{margin: "20px 0px"}}>
+              Submit
+            </RoundedButton>
           </LoginForm>
         </LoginContainer>
       </LoginBox>

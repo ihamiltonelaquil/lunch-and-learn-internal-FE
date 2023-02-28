@@ -2,6 +2,8 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import React, { useState } from "react";
 import styled, { ThemedStyledProps } from "styled-components";
 import Link from "next/link";
+import Login from "../LoginScreen";
+import { DarkBG } from "../StyleComponents/styledComponents";
 
 interface DropdownMenuProps {
   isVisible: boolean;
@@ -23,13 +25,18 @@ const DropdownMenu = styled.div<DropdownMenuProps>`
 `;
 
 const WhiteBackgroundContainer = styled.div<DropdownMenuProps>`
-  background-color: #fdfdfd;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  background-color: var(--colour-bg);
+  box-shadow: 
+              inset -2px -2px 6px rgba(255, 255, 255, .7),
+              inset -2px -2px 4px rgba(255, 255, 255, .5),
+              inset 2px 2px 2px rgba(255, 255, 255, .075),
+              inset 2px 2px 4px rgba(0, 0, 0, .15);
   border-radius: 10px;
   height: ${(props: ThemedStyledProps<DropdownMenuProps, any>) =>
     props.isVisible ? "3rem" : "0rem"};
-  transition: all 0.15s ease-out;
+  transition: height 0.15s ease-out;
   overflow: hidden;
+  margin-top: 5px;
 `;
 
 const MenuItem = styled.div`
@@ -43,21 +50,40 @@ const MenuItem = styled.div`
   padding-top: 2px;
   padding-bottom: 2px;
   &:hover {
-    background-color: #e6e6e6;
+    background-color: rgba(255, 255, 255, 0.5);
   }
   > a {
     font-size: small;
   }
 `;
 
+const StyledImage = styled(Image)`
+    box-shadow: 
+              -6px -6px 14px rgba(255, 255, 255, .7),
+              -6px -6px 10px rgba(255, 255, 255, .5),
+              6px 6px 8px rgba(255, 255, 255, .075),
+              6px 6px 10px rgba(0, 0, 0, .15);
+`;
+
 const DropDownNav = () => {
   const { user } = useUser();
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [isUpdatingDetails, setIsUpdatingDetails] = useState(false);
 
   return (
     <>
+      {isUpdatingDetails && 
+        <>
+          <Login />
+          <DarkBG 
+            onClick={() => {
+              setIsUpdatingDetails(false);
+            }}
+          />
+        </>
+      }
       <ImageContainer>
-        <Image
+        <StyledImage
           src={
             typeof user?.picture === "string"
               ? user.picture
@@ -74,7 +100,11 @@ const DropDownNav = () => {
               <Link href="/api/auth/logout">Logout</Link>
             </MenuItem>
             <MenuItem>
-              <Link href="/api/">Update Details</Link>
+              <a onClick={
+                () => {
+                  setIsUpdatingDetails(true);
+                }
+              }>Update Details</a>
             </MenuItem>
           </WhiteBackgroundContainer>
         </DropdownMenu>

@@ -42,7 +42,7 @@ const AttachmentsList: React.FC<{
       .then((data) => {
         setLinkData(data);
       });
-  }, [attachmentData, linkData, meetingId]);
+  }, [meetingId]);
 
   function deleteAttachment(attachmentId: string) {
     fetch(process.env.API_ROUTE+`/api/attachment/${attachmentId}`, {
@@ -50,6 +50,11 @@ const AttachmentsList: React.FC<{
     }).then((res) => {
       if (res.ok) {
         setResponseData(res);
+        fetch(`https://localhost:555/api/attachment/${meetingId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setAttachmentData(data);
+        });
       } else {
         console.log("Error occurred while deleting attachment");
       }
@@ -62,6 +67,11 @@ const AttachmentsList: React.FC<{
     }).then((res) => {
       if (res.ok) {
         setResponseData(res);
+        fetch(`https://localhost:555/api/link/${meetingId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setLinkData(data);
+        });
       } else {
         console.log("Error occurred while deleting link");
       }

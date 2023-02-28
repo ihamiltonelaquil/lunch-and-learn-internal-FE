@@ -4,58 +4,22 @@ import {
   RoundedButton,
   StyledCard,
   StyledMeetingCardButton,
+  StyledInput,
+  StyledTextArea,
+  InputHeader
 } from "../StyleComponents/styledComponents";
 import styled from "styled-components";
 import ReactLoading from "react-loading";
 import React from "react";
 import AttachmentsList from "../AttachmentsList";
-
-const InputHeader = styled.p`
-  text-align: left;
-  font-weight: 600;
-  margin: 5px 0px 0px 10px !important;
-`;
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   /* margin: 0px 10px; */
   width: 100%;
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  border: 2px solid white;
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  transition: border 0.2s ease-in-out;
-  &:focus {
-    border: 2px solid var(--color-accent-dark);
-  }
-`;
-
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  border: 2px solid white;
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  border-radius: 20px;
-  resize: none;
-  &:focus {
-    border: 2px solid var(--color-accent-dark);
-  }
 `;
 
 const GridWrapper = styled.div`
@@ -68,6 +32,14 @@ const GridWrapper = styled.div`
 const AttachmentContainer = styled.div`
   margin-top: 5px;
 `;
+
+const ButtonWrapper = styled.span`
+  margin-top: 15px;
+  gap: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+`
 interface MeetingData {
   meetingID: string;
   authID: string;
@@ -141,19 +113,19 @@ const UpdateMeeting: React.FC<MeetingData> = ({
       setFile(null);
     }
     setIsSubmittingAttachment(false);
-    let cssClass = "";
-    setTimeout(() => {
-      const fileSelector = document.getElementById("fileSelector");
-      const fileSubmit = document.getElementById("fileSubmit");
-      if (uploadResponseData?.status === 200) cssClass = "upload-success";
-      else cssClass = "upload-failure";
-      fileSelector?.classList.add(cssClass);
-      fileSubmit?.classList.add(cssClass);
-      setTimeout(() => {
-        fileSelector?.classList.remove(cssClass);
-        fileSubmit?.classList.remove(cssClass);
-      }, 5000);
-    }, 100);
+    // let cssClass = "";
+    // setTimeout(() => {
+    //   const fileSelector = document.getElementById("fileSelector");
+    //   const fileSubmit = document.getElementById("fileSubmit");
+    //   if (uploadResponseData?.status === 200) cssClass = "upload-success";
+    //   else cssClass = "upload-failure";
+    //   fileSelector?.classList.add(cssClass);
+    //   fileSubmit?.classList.add(cssClass);
+    //   setTimeout(() => {
+    //     fileSelector?.classList.remove(cssClass);
+    //     fileSubmit?.classList.remove(cssClass);
+    //   }, 5000);
+    // }, 100);
   }
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -289,13 +261,13 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                       />
                       <RoundedButton
                         id="fileSelector"
-                        width={170}
+                        width={245}
                         onClick={redirectClick}
                       >
                         {file == null ? "Select a File" : file.name}
                       </RoundedButton>
-                      <RoundedButton id="fileSubmit" width={110} type="submit">
-                        Upload
+                      <RoundedButton id="fileSubmit" width={40} type="submit">
+                        <FontAwesomeIcon icon={faCloudArrowUp} />
                       </RoundedButton>
                     </form>
                   ) : (
@@ -303,7 +275,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                       <ReactLoading
                         type="cylon"
                         color={getComputedStyle(document.body).getPropertyValue(
-                          "--colour-accent"
+                          "--colour-primary"
                         )}
                         height={35}
                         width={35}
@@ -396,14 +368,14 @@ const UpdateMeeting: React.FC<MeetingData> = ({
               </InputWrapper>
             </GridWrapper>
           </div>
-          <span>
+          <ButtonWrapper>
             <StyledMeetingCardButton onClick={handleToggleOpen}>
               Close
             </StyledMeetingCardButton>
             <StyledMeetingCardButton onClick={saveData}>
               Save
             </StyledMeetingCardButton>
-          </span>
+          </ButtonWrapper>
         </StyledCard>
       )}
     </>

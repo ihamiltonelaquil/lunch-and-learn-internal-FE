@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { useEffect } from "react";
 import $ from "jquery";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -14,9 +15,12 @@ export default function App({ Component, pageProps }: AppProps) {
   //       setTimeout(function () { $(element).removeClass("css-transitions-only-after-page-load") }, 10);
   //   });
 // });
+// debugger;
   return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+    <>
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
+    </>
   );
 }
