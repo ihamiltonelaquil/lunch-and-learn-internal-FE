@@ -274,9 +274,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
                     <CenteredDiv>
                       <ReactLoading
                         type="cylon"
-                        color={getComputedStyle(document.body).getPropertyValue(
-                          "--colour-primary"
-                        )}
+                        color={typeof window !== 'undefined' ? window.getComputedStyle(document.body).getPropertyValue('--colour-primary-dark') : "#007a8a"}
                         height={35}
                         width={35}
                       />
