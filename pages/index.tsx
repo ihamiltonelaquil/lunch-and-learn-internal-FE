@@ -13,7 +13,7 @@ const Index = () => {
   useEffect(() => {
     if (user?.sub != undefined || null) {
       setBusy(true);
-      fetch(process.env.API_ROUTE+`/api/user/${user?.sub}`)
+      fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/user/${user?.sub}`)
         .then((res) => res.json())
         .then((data) => {
           setUserData(data);

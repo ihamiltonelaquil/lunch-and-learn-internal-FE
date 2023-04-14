@@ -51,7 +51,7 @@ export default function CardOrList() {
   const width = isMobile ? 100 : 150;
 
   useEffect(() => {
-    fetch(process.env.API_ROUTE+`/api/Meeting/${searchText}`)
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/Meeting/${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setTableData(data);

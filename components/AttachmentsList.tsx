@@ -32,12 +32,12 @@ const AttachmentsList: React.FC<{
   const [responseData, setResponseData] = useState<Response>();
 
   useEffect(() => {
-    fetch(process.env.API_ROUTE+`/api/attachment/${meetingId}`)
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/attachment/${meetingId}`)
       .then((res) => res.json())
       .then((data) => {
         setAttachmentData(data);
       });
-    fetch(process.env.API_ROUTE+`/api/link/${meetingId}`)
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/link/${meetingId}`)
       .then((res) => res.json())
       .then((data) => {
         setLinkData(data);
@@ -45,7 +45,7 @@ const AttachmentsList: React.FC<{
   }, [meetingId]);
 
   function deleteAttachment(attachmentId: string) {
-    fetch(process.env.API_ROUTE+`/api/attachment/${attachmentId}`, {
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/attachment/${attachmentId}`, {
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {
@@ -62,7 +62,7 @@ const AttachmentsList: React.FC<{
   }
 
   function deleteLink(linkID: string) {
-    fetch(process.env.API_ROUTE+`/api/link/${linkID}`, {
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/link/${linkID}`, {
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {

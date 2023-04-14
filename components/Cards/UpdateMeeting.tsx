@@ -103,7 +103,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
     if (file) {
       data.append("file", file);
       const res = await fetch(
-        process.env.API_ROUTE+`/api/Attachment/upload?meetingId=${meetingID}`,
+        process.env.NEXT_PUBLIC_API_ROUTE+`/api/Attachment/upload?meetingId=${meetingID}`,
         {
           method: "POST",
           body: data,
@@ -133,7 +133,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   async function handleAddLink(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     fetch(
-      process.env.API_ROUTE+`/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`,
+      process.env.NEXT_PUBLIC_API_ROUTE+`/api/link/${meetingID}?linkURL=${linkAddress}&linkName=${linkName}`,
       {
         method: "POST",
         headers: {
@@ -151,7 +151,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
   }
 
   async function handleDeleteMeeting() {
-    fetch(process.env.API_ROUTE+`/api/Meeting/${meetingID}`, {
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/Meeting/${meetingID}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -169,7 +169,7 @@ const UpdateMeeting: React.FC<MeetingData> = ({
       meetingStart,
       meetingEnd,
     };
-    fetch(process.env.API_ROUTE+`/api/Meeting/${meetingID}`, {
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/Meeting/${meetingID}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

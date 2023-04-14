@@ -20,7 +20,7 @@ const CardSlider: React.FC<cardSliderProps> = (props: cardSliderProps) => {
   const [didUpdate, setDidUpdate] = useState(false);
 
   useEffect(() => {
-    fetch(process.env.API_ROUTE+`/api/Meeting/`)
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/Meeting/`)
       .then((res) => res.json())
       .then((data) => {
         setCardData(data);
