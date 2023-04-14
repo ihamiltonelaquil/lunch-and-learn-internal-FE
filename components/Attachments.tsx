@@ -50,7 +50,7 @@ export default function Attachments() {
           <button type="submit">Upload</button>
         </form>
       ) : (
-        <ReactLoading type="cylon" color="#87eec7" height={50} width={50} />
+        <ReactLoading type="cylon" color={typeof window !== 'undefined' ? window.getComputedStyle(document.body).getPropertyValue('--colour-primary-dark') : "#007a8a"} height={50} width={50} />
       )}
       {responseData == undefined ? <></> : <p>{responseData.statusText}</p>}
       <br></br>

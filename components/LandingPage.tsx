@@ -52,21 +52,21 @@ const Word = styled.span`
 export default function LandingPage() {
   const router = useRouter();
   const text = "Welcome to Lunch and Learn";
-
   return (
-    <Container>
-      <Wrapper>
-        <Title>
-          {text.split(" ").map((word, index) => (
-            <Word key={index} style={{ "--animation-index": index } as any}>
-              {word}{" "}
-            </Word>
-          ))}
-        </Title>
-        <RoundedButton width={180} type="button" onClick={() => router.push("/api/auth/login")}>
-          Login
-        </RoundedButton>
-      </Wrapper>
-    </Container>
+      <Container>
+        <Wrapper>
+          <Title>
+            {text.split(" ").map((word, index) => (
+              <Word key={index} style={{ "--animation-index": index } as any}>
+                {word}{" "}
+              </Word>
+            ))}
+          </Title>
+          <RoundedButton width={180} type="button" onClick={() => router.push("/api/auth/login")}>
+            Login
+          </RoundedButton>
+        </Wrapper>
+      </Container>
+
   );
 }
