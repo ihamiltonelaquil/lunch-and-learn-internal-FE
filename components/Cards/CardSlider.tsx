@@ -39,7 +39,9 @@ const CardSlider: React.FC<cardSliderProps> = (props: cardSliderProps) => {
         setCardData(data);
         if (firstLoad) {
           setTimeout(() => {
-            sliderRef.current?.slickGoTo(findNextMeetingIndex(data), true);
+            const nextMeetingIndex = findNextMeetingIndex(data)
+            sliderRef.current?.slickGoTo(nextMeetingIndex, true);
+            setExpandedCardData(data[nextMeetingIndex]);
           }, 1);
           setFirstLoad(false);
         }
