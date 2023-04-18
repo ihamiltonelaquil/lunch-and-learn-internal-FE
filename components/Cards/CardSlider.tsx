@@ -9,7 +9,7 @@ import { DarkBG } from "../StyleComponents/styledComponents";
 import { useComponentDidMount } from "../../lib/utils";
 
 interface cardSliderProps {
-  didChange: boolean,
+  didChange: boolean;
 }
 
 interface MeetingData {
@@ -33,7 +33,7 @@ const CardSlider: React.FC<cardSliderProps> = (props: cardSliderProps) => {
   let [firstLoad, setFirstLoad] = useState(true);
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_ROUTE+`/api/Meeting/`)
+    fetch(process.env.NEXT_PUBLIC_API_ROUTE + `/api/Meeting/`)
       .then((res) => res.json())
       .then((data) => {
         setCardData(data);
@@ -46,9 +46,9 @@ const CardSlider: React.FC<cardSliderProps> = (props: cardSliderProps) => {
       });
   }, [currentIndex, didChange, didUpdate]);
 
-useEffect(() => {
+  useEffect(() => {
     if (cardData.length > 0) {
-        setExpandedCardData(cardData[currentIndex]);
+      setExpandedCardData(cardData[currentIndex]);
     }
   }, [cardData, currentIndex]);
 
@@ -70,19 +70,18 @@ useEffect(() => {
 
   function findNextMeetingIndex(meetings: MeetingData[]): number {
     const now = new Date();
-  
+
     for (let i = 0; i < meetings.length; i++) {
       const meetingEnd = new Date(meetings[i].meetingEnd);
-  
+
       if (meetingEnd > now) {
         return i;
       }
     }
-  
+
     // If no upcoming meetings were found, return tail
     return meetings.length - 1;
   }
-  
 
   var settings = {
     accessibility: true,
@@ -143,5 +142,5 @@ useEffect(() => {
       </Slider>
     </>
   );
-}
+};
 export default CardSlider;
